@@ -52,32 +52,30 @@
 				<label for="slider-2">Percentage Oxygen</label>
 				<input type="range" name="slider-2" id="slider1" data-highlight="true" min="21" max="40" value="21"></input>	
 			</form>		
-
-
-<!--	function computeEAD(form)
-	{	   
-	      if(( form.fo2.value == null || form.fo2.value.length == 0 ) ||
-	         (  form.d.value == null || form.d.value.length == 0 )) {
-	         return;
-	      }
-	      if( !checkNumber( form.fo2, 0.000, 1.000, "FO2" ) ||
-	          !checkNumber( form.d, 0.000, 1000.000, "Depth" )) { 
-	          return;
-	      }	
-	          form.ead.value = ( ( ( ( 1.0 - parseFloat(form.fo2.value) ) * ( parseFloat(form.d.value) + 33.0 ) ) / 0.79) - 33.0 ) ;
-	 } -->
 	 
 <script>
 //$(document).on('change', '#slider1', function(){ 
 //  console.log($(this).val());
 //});
 	 
-$(document).ready(function() {
-   var depth = $('input#slider1').val();
-   var percentageO2 = $('input#p1slider2').val();
-   var EAD = null;
-   EAD = ((((1 - percentageO2) * (depth + 33))/ 0.79) - 33);
-   alert(EAD);
+//$(document).ready(function() {
+   //var depth = $('input#slider1').val();
+   //var percentageO2 = $('input#p1slider2').val();
+
+
+
+$("#slider1").slider({
+   slide: function( event, ui ) {
+        console.log('moved'); // Run code if slider value changes
+    },
+    stop: function(event, ui) {
+        console.log('released handle');
+    }   
+   
+   
+   //var EAD = null;
+   //EAD = ((((1 - percentageO2) * (depth + 33))/ 0.79) - 33);
+   //alert(EAD);
 }); //end ready 
 </script>
 
@@ -98,8 +96,8 @@ $(document).ready(function() {
     </div>
   </div>
   <div data-role="footer">
-    <a href="#" class="ui-btn ui-btn-inline ui-icon-gear">Settings</a>
-    <h3>Explorers Dive Club</h3>
+    <a href="#" class="ui-btn ui-btn-inline ui-icon-gear ui-btn-icon-left">Settings</a>
+    <p>Explorers Dive Club</p>
   </div>
 </div>
 
