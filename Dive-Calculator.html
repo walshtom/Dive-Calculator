@@ -4,20 +4,73 @@
 <head>
   <meta charset="utf-8">
   <meta name="author" content="Tom Walsh">  
-  <link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css">
+  <link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css"> 
   <link rel="icon" href="img/favicon.ico">
   
   <script src="js/jquery-1.12.3.min.js" type="text/javascript"></script>
+  
   <script src="js/jquery.mobile-1.4.5.min.js" type="text/javascript"></script>
   <title>Scuba Gas Calculator</title>  
   <meta name="viewport" content="width=device-width, minimum-scale=1.0">
 </head>
 
 <body>
-
-<div>
-
+	
+<div data-role="page" id="page1">
+  <div data-role="header">
+    <h1>Nitrox Calculator</h1>
+  </div>
+  <div role="main" class="ui-content">
+    <div data-role="tabs">
+      <div data-role="navbar">
+        <ul>
+          <li><a href="#tab-1" class="ui-btn-active">Best Mix</a></li>
+          <li><a href="#tab-2">MOD</a></li>
+          <li><a href="#tab-3">EAD</a></li>
+		  <li><a href="#tab-4">ppO2</a></li>
+        </ul>
+      </div>
+      <div id="tab-1">
+        <h2>Best Nitrox Mix</h2>
+			<form>
+				<label for="slider-1">Depth</label>
+				<input type="range" name="slider-1" id="slider1" data-highlight="true" min="0" max="150" value="0"></input>	
+			</form>		
+      </div>
+      <div id="tab-2">
+        <h2>Maximum Operating Depth</h2>
+			<form>	
+				<label for="slider-2">Percentage Oxygen</label>
+				<input type="range" name="slider-2" id="slider1" data-highlight="true" min="21" max="40" value="21"></input>	
+			</form>		
+      </div>
+      <div id="tab-3">
+        <h2>Equivalent Air Depth</h2>
+			<form>
+				<label for="slider-1">Depth</label>
+				<input type="range" name="slider-1" id="slider1" data-highlight="true" min="0" max="150" value="0"></input>		
+				<label for="slider-2">Percentage Oxygen</label>
+				<input type="range" name="slider-2" id="slider1" data-highlight="true" min="21" max="40" value="21"></input>	
+			</form>		
+      </div>
+      <div id="tab-4">
+        <h2>Partial Pressure of Oxygen</h2>
+        <p>Equivalent Air Depth</p>
+			<form>
+				<label for="slider-1">Depth</label>
+				<input type="range" name="slider-1" id="slider1" data-highlight="true" min="0" max="150" value="0"></input>		
+				<label for="slider-2">Percentage Oxygen</label>
+				<input type="range" name="slider-2" id="slider1" data-highlight="true" min="21" max="40" value="21"></input>	
+			</form>				
+      </div>	  
+    </div>
+  </div>
+  <div data-role="footer">
+    <h3>Explorers Dive Club</h3>
+  </div>
 </div>
+
+
 
 </body>
 </html>

@@ -1,0 +1,123 @@
+<!doctype html public "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+	<title>Explorers Dive Club</title>
+	<link rel="stylesheet" type="text/css" href="stylesheets/default.css"/>
+    <link rel="shortcut icon" href="edcfavicon.ico" />
+	<script type="text/javascript" src="http://gc.kis.scr.kaspersky-labs.com/1B74BD89-2A22-4B93-B451-1C9E1052A0EC/main.js" charset="UTF-8"></script><script type="text/javascript">
+	function checkNumber(input, min, max, msg)
+	{
+	    msg = msg + " field has invalid data: " + input.value;
+	    var str = input.value;
+	    for (var i = 0; i < str.length; i++) {
+	        var ch = str.substring(i, i + 1)
+	        if ((ch < "0" || "9" < ch) && ch != '.') {
+	            alert(msg);
+	            return false;
+	        }
+	    }
+	    var num = 0 + str
+	    if (num < min || max < num) {
+	        alert(msg + " not in range [" + min + ".." + max + "]");
+	        return false;
+	    }
+	    input.value = str;
+	    return true;
+	}
+	
+	function computebm(form)
+	{
+	      if(( form.ppo2.value == null || form.ppo2.value.length == 0 ) ||
+	         ( form.depth.value == null || form.depth.value.length == 0
+	)) {
+	         return;
+	      }
+	      if( !checkNumber( form.ppo2, 0.000, 1.800, "FO2" ) ||
+	          !checkNumber( form.depth, 0.000, 1000.000, "Depth" )) {
+	          return;
+	      }
+	   if ( form.depth.value <= 130) {
+	
+	      form.o2.value = (parseFloat(form.ppo2.value) /
+	((parseFloat(form.depth.value) / 33.0)+1));
+	      form.n2.value = form.n2.value * 100;
+	       form.o2.value= form.o2.value * 100;
+	       form.n2.value = 100 - form.o2.value;      
+	      form.h2.value = 0;
+	} else {
+	form.o2.value = (parseFloat(form.ppo2.value) /
+	((parseFloat(form.depth.value) / 33.0)+1));
+	form.n2.value = ( ((parseFloat(form.end.value) +33.0)*.79) /
+	(parseFloat(form.depth.value) + 33));
+	         form.n2.value = form.n2.value * 100;
+	         form.o2.value= form.o2.value * 100;
+	         form.h2.value = 100 - form.o2.value - form.n2.value;  
+	      }
+	}
+	
+	function clearForm(form)
+	{
+	    form.ppo2.value = "";
+	    form.depth.value = "";
+	    form.end.value = "";
+	    form.o2.value ="";
+	    form.n2.value="";
+	    form.h2.value="";
+	
+	}
+	</script>
+</head>
+<body>
+	<div class="TITLE">
+		<img src="gifs/logo2.gif" alt="dive club logo" border="0" 
+		align="bottom" width="126" height="113" />
+		Best Mix
+	</div>
+	
+<p>This script calculates the optimum (highest allowable Oxygen
+content) of a gas mixture
+given the Oxygen partial pressure limit (p.p.0<sub>2</sub>, in atmospheres) and operating depth (in feet of salt water).</p>
+If the depth is greater then 130, and you add in a max END, it will
+figure out the Helium percentage as well.
+<center>
+<form method = "post" action="...">
+<table border = 3 cellspacing=2 cellpadding=2>
+<tr><td align=center>p.p.O<sub>2</sub>
+</td><td align=center>Max Depth</td>
+</td><td align=center>MAx END</td>
+<td align=center>O2</td>
+<td align=center>N2</td>
+<td align=center>He</td>
+</tr>
+<tr><td align=center><input type = "text" name = "ppo2"  size =4 /></td>
+<td align=center><input type = "text" name = "depth"  size = 4 /></td>
+<td align=center><input type = "text" name = "end" size = 4 /></td>
+<td align=center><input type = "text" name = "o2" size = 3 /></td>
+<td align=center><input type = "text" name = "n2" size = 3 /></td>
+<td align=center><input type = "text" name = "h2" size = 3 /></td>
+</tr>
+<tr>
+  <td colspan=2 align=center><input type = "reset"  value="Reset" onClick="clearform(this.form)" /></td>
+  <td align=center><input type = "button" value = "Compute" onClick="computebm(this.form)" /></td></tr></table>
+</form></center>
+
+<p><center>
+
+<table border=5 cellspacing=5 cellpadding=5>
+
+<td align=center valign=center><font size = +2><a href="Best Mix.html">Best Mix</a></font></td>
+</tr>
+
+<td align=center valign=center><a href="ead.html"><font size = +2>Equivalent Air
+Depth</a></font></td></tr>
+
+<td align=center valign=center><font size = +2><a href="mod.html">Maximum Operating
+Depth</a></font></a></td></tr>
+
+<td align=center valign=center><font size = +2><a href="opp.html">Oxygen Partial
+Pressure</a></font></td></tr></table></p></center>
+
+<p align=center><font size = +3><a href="Nitrox.html">Back to Nitrox</a></font></p>
+</body>
+</html>
