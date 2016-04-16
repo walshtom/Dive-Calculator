@@ -30,13 +30,29 @@
 		  <li><a href="#tab-4">ppO<sub>2</sub></a></li>
         </ul>
       </div>
+	  
+<!-- -------------------------------------------------------------------------------- -->	  
+	  
       <div id="tab-1">
         <h2>Best Nitrox Mix</h2>
-			<form>
+			<div>
 				<label for="slider-1">Depth</label>
-				<input type="range" name="slider-1" id="slider1" data-highlight="true" min="0" max="150" value="0"></input>	
-			</form>		
+				<input type="range" name="slider-1" id="depth_slider" data-highlight="true" min="33" max="150" value="33"></input>	
+			</div>	
+			<p></p><span id="BM_value">70</span>&nbsp;Percent Oxygen</p>
       </div>
+<script>
+$(document).on('change', '#depth_slider', function() {
+	var BM = null;
+	var depth  = ($(this).val());
+	ATA = null;
+	ATA = ((depth/33) + 1);
+	BM = Math.round(100 * (1.4/ATA));
+	$('#BM_value').html(BM);	
+});
+</script>		  
+<!-- -------------------------------------------------------------------------------- -->
+	  
       <div id="tab-2">
         <h2>Maximum Operating Depth</h2>
 			<div id="test">	
@@ -54,7 +70,7 @@ $(document).on('change', '#percentO2slider', function() {
 });
 </script>	  
 	  
-	  
+<!-- -------------------------------------------------------------------------------- -->	  
 	  
       <div id="tab-3">
         <h2>Equivalent Air Depth</h2>
@@ -65,22 +81,32 @@ $(document).on('change', '#percentO2slider', function() {
 				<input type="range" class="EADslider" name="slider-2" id="slider1" data-highlight="true" min="21" max="40" value="21"></input>	
 			</div>		
 	 
+<script>
+$(document).on('change', '#percentO2slider', function() {
+	var MOD = null;
+	var fO2  = ($(this).val())/100;
+	MOD = Math.round((46.2/fO2)-33);
+	$('#MOD_value').html(MOD);	
+});
+</script>
 
 
-
-
+<!-- -------------------------------------------------------------------------------- -->
 
 			</div>
       <div id="tab-4">
         <h2>Partial Pressure of Oxygen</h2>
         <p>Equivalent Air Depth</p>
-			<form>
+			<div>
 				<label for="slider-1">Depth</label>
 				<input type="range" name="slider-1" id="slider1" data-highlight="true" min="0" max="150" value="0"></input>		
 				<label for="slider-2">Percentage Oxygen</label>
-				<input type="range" name="slider-2" id="slider1" data-highlight="true" min="21" max="40" value="21"></input>	
-			</form>				
-      </div>	  
+				<input type="range" name="slider-2" id="slider1" data-highlight="true" min="21" max="40" value="21"></input>
+			<p></p><span id="MOD_value">0</span>&nbsp;Feet</p>					
+			</div>				
+      </div>
+
+	  
     </div>
   </div>
   <div data-role="footer">
