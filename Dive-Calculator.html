@@ -116,15 +116,31 @@ $('#EAD_value').html(EAD);
 			<input type="range" name="slider-1" id="depth_slider3" data-highlight="true" min="0" max="150" value="0"></input>		
 			<label for="slider-2">Percentage Oxygen</label>
 			<input type="range" name="slider-2" id="percentO2slider3" data-highlight="true" min="21" max="40" value="21"></input>
-		<p></p><span id="MOD_value">0.21</span>&nbsp;Atmospheres Absolute</p>					
+		<p><span id="ppO2_value">0.21</span>&nbsp;Atmospheres Absolute</p>					
 		</div>				
 </div>
 <script>
+	var depth3 = 0;
+	var fO2 = .21;
+	var ppO2 = null;
+$(document).on('change', '#depth_slider3', function() {	
+	depth3 = ($(this).val());
+	calcppO2(depth3);
+});
+$(document).on('change', '#percentO2slider3', function() {
+	fO2 = ($(this).val())/100;
+	calcppO2(fO2);
+});
 
+function calcppO2() {
+	var pressure = null;
+	pressure = ((depth3/33) + 1);
 
+	ppO2 = (fO2 * pressure);
+	ppO2 = ppO2.toFixed(2);
 
-
-
+$('#ppO2_value').html(ppO2);
+}
 
 </script> 
 <!-- -------------------------------------------------------------------------------- -->
