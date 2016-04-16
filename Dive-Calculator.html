@@ -27,7 +27,7 @@
           <li><a href="#tab-1" class="ui-btn-active">Best Mix</a></li>
           <li><a href="#tab-2">MOD</a></li>
           <li><a href="#tab-3">EAD</a></li>
-		  <li><a href="#tab-4">ppO2</a></li>
+		  <li><a href="#tab-4">ppO<sub>2</sub></a></li>
         </ul>
       </div>
       <div id="tab-1">
@@ -39,45 +39,33 @@
       </div>
       <div id="tab-2">
         <h2>Maximum Operating Depth</h2>
-			<form>	
+			<div id="test">	
 				<label for="slider-2">Percentage Oxygen</label>
-				<input type="range" name="slider-2" id="slider1" data-highlight="true" min="21" max="40" value="21"></input>	
-			</form>		
+				<input type="range" name="slider-2" id="percentO2slider" data-highlight="true" min="21" max="40" value="21"></input>	
+			</div>	
+			<p></p><span id="MOD_value">187</span>&nbsp;Feet</p>		
       </div>
+<script>
+$(document).on('change', '#percentO2slider', function() {
+	var MOD = null;
+	var fO2  = ($(this).val())/100;
+	MOD = Math.round((46.2/fO2)-33);
+	$('#MOD_value').html(MOD);	
+});
+</script>	  
+	  
+	  
+	  
       <div id="tab-3">
         <h2>Equivalent Air Depth</h2>
-			<form>
+			<div>
 				<label for="slider-1">Depth</label>
-				<input type="range" name="slider-1" id="slider1" data-highlight="true" min="0" max="150" value="0"></input>		
+				<input type="range" class="EADslider" name="slider-1" id="slider1" data-highlight="true" min="0" max="150" value="0"></input>		
 				<label for="slider-2">Percentage Oxygen</label>
-				<input type="range" name="slider-2" id="slider1" data-highlight="true" min="21" max="40" value="21"></input>	
-			</form>		
+				<input type="range" class="EADslider" name="slider-2" id="slider1" data-highlight="true" min="21" max="40" value="21"></input>	
+			</div>		
 	 
-<script>
-//$(document).on('change', '#slider1', function(){ 
-//  console.log($(this).val());
-//});
-	 
-//$(document).ready(function() {
-   //var depth = $('input#slider1').val();
-   //var percentageO2 = $('input#p1slider2').val();
 
-
-
-$("#slider1").slider({
-   slide: function( event, ui ) {
-        console.log('moved'); // Run code if slider value changes
-    },
-    stop: function(event, ui) {
-        console.log('released handle');
-    }   
-   
-   
-   //var EAD = null;
-   //EAD = ((((1 - percentageO2) * (depth + 33))/ 0.79) - 33);
-   //alert(EAD);
-}); //end ready 
-</script>
 
 
 
