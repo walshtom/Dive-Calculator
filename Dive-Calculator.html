@@ -5,19 +5,20 @@
   <meta charset="utf-8">
   <meta name="author" content="Tom Walsh">  
   <link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css"> 
-  <link rel="icon" href="img/favicon.ico">
-  
-  <script src="js/jquery-1.12.3.min.js" type="text/javascript"></script>
-  
+  <link rel="icon" href="img/favicon.ico">  
+  <script src="js/jquery-1.12.3.min.js" type="text/javascript"></script>  
   <script src="js/jquery.mobile-1.4.5.min.js" type="text/javascript"></script>
   <title>Scuba Gas Calculator</title>  
   <meta name="viewport" content="width=device-width, minimum-scale=1.0">
+  <style type="text/css">
+    <!-- custom style overrides go here -->
+  </style>
 </head>
 
 <body>
 	
 <div data-role="page" id="page1">
-  <div data-role="header">
+  <div data-role="header" data-position="fixed">
     <h1>Nitrox Calculator</h1>
   </div>
   <div role="main" class="ui-content">
@@ -34,12 +35,12 @@
 <!-- -------Best Nitrox Mix--------------------------------------------------------- -->	  
 	  
 <div id="tab-1">
-	<h2>Best Nitrox Mix</h2>
+	<h3 style="text-align: center;">Best Nitrox Mix</h3>
 		<div>
 			<label for="slider-1">Depth</label>
 			<input type="range" name="slider-1" id="depth_slider" data-highlight="true" min="33" max="150" value="33"></input>	
 		</div>	
-		<h2><span id="BM_value">70</span>&nbsp;Percent Oxygen</h2>
+		<h3 style="text-align: center;"><span id="BM_value">70</span>&nbsp;Percent Oxygen</h3>
 </div>
 <script>
 $(document).on('change', '#depth_slider', function() {
@@ -54,12 +55,12 @@ $(document).on('change', '#depth_slider', function() {
 <!-- -------Maximum Operating Depth-------------------------------------------------- -->
 	  
 <div id="tab-2">
-	<h2>Maximum Operating Depth</h2>
+	<h2 style="text-align: center;">Maximum Operating Depth</h2>
 		<div id="test">	
 			<label for="slider-2">Percentage Oxygen</label>
 			<input type="range" name="slider-2" id="percentO2slider" data-highlight="true" min="21" max="40" value="21"></input>	
 		</div>	
-		<h2><span id="MOD_value">187</span>&nbsp;Feet</h2>		
+		<h2 style="text-align: center;"><span id="MOD_value">187</span>&nbsp;Feet</h2>		
 </div>
 <script>
 $(document).on('change', '#percentO2slider', function() {
@@ -73,14 +74,14 @@ $(document).on('change', '#percentO2slider', function() {
 <!-- -------Equivalent Air Depth----------------------------------------------------- -->	  
 	  
 <div id="tab-3">
-	<h2>Equivalent Air Depth</h2>
+	<h2 style="text-align: center;">Equivalent Air Depth</h2>
 		<div>
 			<label for="slider-1">Depth</label>
 			<input type="range" class="EADslider" name="slider-1" id="depth_slider" data-highlight="true" min="33" max="150" value="33"></input>		
 			<label for="slider-2">Percentage Oxygen</label>
 			<input type="range" class="EADslider" name="slider-2" id="percentO2slider" data-highlight="true" min="21" max="40" value="21"></input>	
 		</div>		
-		<h2><span id="EAD_value">33</span>&nbsp;Feet</h2>	
+		<h2 style="text-align: center;"><span id="EAD_value">33</span>&nbsp;Feet</h2>	
 </div>		
 <script>
 	var depth2 = 33;
@@ -110,13 +111,13 @@ $('#EAD_value').html(EAD);
 <!-- -------Partial Pressure of Oxygen----------------------------------------------- -->
 			
 <div id="tab-4">
-	<h2>Partial Pressure of Oxygen</h2>
+	<h2 style="text-align: center;">Partial Pressure of Oxygen</h2>
 		<div>
 			<label for="slider-1">Depth</label>
 			<input type="range" name="slider-1" id="depth_slider" data-highlight="true" min="0" max="150" value="0"></input>		
 			<label for="slider-2">Percentage Oxygen</label>
 			<input type="range" name="slider-2" id="percentO2slider" data-highlight="true" min="21" max="40" value="21"></input>
-		<h2><span id="ppO2_value">0.21</span>&nbsp;Atmospheres Absolute</h2>					
+		<h2 style="text-align: center;"><span id="ppO2_value">0.21</span>&nbsp;Atmospheres Absolute</h2>					
 		</div>				
 </div>
 <script>
@@ -143,28 +144,27 @@ $('#ppO2_value').html(ppO2);
 }
 
 </script> 
-<!-- -------------------------------------------------------------------------------- -->
+<!-- -------------------------------------------------------------------------------- -->	
+</div> <!-- end data-role="tabs" -->
+</div> <!-- end role="main" class="ui-content" --> 
+<!-- -------------Footer------------------------------------------------------------- -->
+		
+	<div data-role="footer" class="ui-grid-b" data-position="fixed">  	
+		<div class="ui-block-a" style="text-align: left;"><a href="#settings" class="ui-btn ui-btn-inline ui-icon-gear ui-btn-icon-left" style="margin-left: 2em;">Settings</a></div>
+		<div class="ui-block-b" style="text-align: center; padding-top: .8em;">Explorers Dive Club</div>		
+	</div>
 	
-    </div> <!-- end data-role="tabs" -->
-	
-  </div> <!-- end role="main" class="ui-content" -->
-  
-<!-- -------------------------------------------------------------------------------- -->
-  
-  <div data-role="footer">
-	<fieldset>	
-		<div class="ui-block-a" style="padding-left: 1em;">
-			<a href="#" class="ui-btn ui-btn-inline ui-icon-gear ui-btn-icon-left">Settings</a>
-		</div>  
-		<div style="text-align: center;">
-			<p>Explorers Dive Club</p>
-		</div>		
-	</fieldset>
-  </div>
-  
-  
-  
-</div>  <!-- end data-role="page" id="page1" -->
+</div> <!-- end data-role="page" id="page1" -->		
+ 
+	<div id="settings" data-role="page" data-dialog="true" data-close-btn="left" data-theme="a">
+		<div data-role="header">
+			<h1>Settings</h1>
+		</div>
+		<div class="ui-content" role="main">
+			<p>This is the content.</p>
+			
+		</div> 
+	</div>  
 
 
 
