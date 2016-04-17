@@ -37,12 +37,12 @@
 	<h2>Best Nitrox Mix</h2>
 		<div>
 			<label for="slider-1">Depth</label>
-			<input type="range" name="slider-1" id="depth_slider1" data-highlight="true" min="33" max="150" value="33"></input>	
+			<input type="range" name="slider-1" id="depth_slider" data-highlight="true" min="33" max="150" value="33"></input>	
 		</div>	
-		<p></p><span id="BM_value">70</span>&nbsp;Percent Oxygen</p>
+		<h2><span id="BM_value">70</span>&nbsp;Percent Oxygen</h2>
 </div>
 <script>
-$(document).on('change', '#depth_slider1', function() {
+$(document).on('change', '#depth_slider', function() {
 	var BM = null;
 	var depth1  = ($(this).val());
 	ATA = null;
@@ -57,12 +57,12 @@ $(document).on('change', '#depth_slider1', function() {
 	<h2>Maximum Operating Depth</h2>
 		<div id="test">	
 			<label for="slider-2">Percentage Oxygen</label>
-			<input type="range" name="slider-2" id="percentO2slider1" data-highlight="true" min="21" max="40" value="21"></input>	
+			<input type="range" name="slider-2" id="percentO2slider" data-highlight="true" min="21" max="40" value="21"></input>	
 		</div>	
-		<p></p><span id="MOD_value">187</span>&nbsp;Feet</p>		
+		<h2><span id="MOD_value">187</span>&nbsp;Feet</h2>		
 </div>
 <script>
-$(document).on('change', '#percentO2slider1', function() {
+$(document).on('change', '#percentO2slider', function() {
 	var MOD = null;
 	var fO2  = ($(this).val())/100;
 	MOD = Math.round((46.2/fO2)-33);
@@ -76,21 +76,21 @@ $(document).on('change', '#percentO2slider1', function() {
 	<h2>Equivalent Air Depth</h2>
 		<div>
 			<label for="slider-1">Depth</label>
-			<input type="range" class="EADslider" name="slider-1" id="depth_slider2" data-highlight="true" min="33" max="150" value="33"></input>		
+			<input type="range" class="EADslider" name="slider-1" id="depth_slider" data-highlight="true" min="33" max="150" value="33"></input>		
 			<label for="slider-2">Percentage Oxygen</label>
-			<input type="range" class="EADslider" name="slider-2" id="percentO2slider2" data-highlight="true" min="21" max="40" value="21"></input>	
+			<input type="range" class="EADslider" name="slider-2" id="percentO2slider" data-highlight="true" min="21" max="40" value="21"></input>	
 		</div>		
-		<p></p><span id="EAD_value">33</span>&nbsp;Feet</p>	
+		<h2><span id="EAD_value">33</span>&nbsp;Feet</h2>	
 </div>		
 <script>
 	var depth2 = 33;
 	var fO2 = .21;
 	var EAD = null;
-$(document).on('change', '#depth_slider2', function() {	
+$(document).on('change', '#depth_slider', function() {	
 	depth2 = ($(this).val());
 	calcEAD(depth2);
 });
-$(document).on('change', '#percentO2slider2', function() {
+$(document).on('change', '#percentO2slider', function() {
 	fO2 = ($(this).val())/100;
 	calcEAD(fO2);
 });
@@ -113,21 +113,21 @@ $('#EAD_value').html(EAD);
 	<h2>Partial Pressure of Oxygen</h2>
 		<div>
 			<label for="slider-1">Depth</label>
-			<input type="range" name="slider-1" id="depth_slider3" data-highlight="true" min="0" max="150" value="0"></input>		
+			<input type="range" name="slider-1" id="depth_slider" data-highlight="true" min="0" max="150" value="0"></input>		
 			<label for="slider-2">Percentage Oxygen</label>
-			<input type="range" name="slider-2" id="percentO2slider3" data-highlight="true" min="21" max="40" value="21"></input>
-		<p><span id="ppO2_value">0.21</span>&nbsp;Atmospheres Absolute</p>					
+			<input type="range" name="slider-2" id="percentO2slider" data-highlight="true" min="21" max="40" value="21"></input>
+		<h2><span id="ppO2_value">0.21</span>&nbsp;Atmospheres Absolute</h2>					
 		</div>				
 </div>
 <script>
 	var depth3 = 0;
 	var fO2 = .21;
 	var ppO2 = null;
-$(document).on('change', '#depth_slider3', function() {	
+$(document).on('change', '#depth_slider', function() {	
 	depth3 = ($(this).val());
 	calcppO2(depth3);
 });
-$(document).on('change', '#percentO2slider3', function() {
+$(document).on('change', '#percentO2slider', function() {
 	fO2 = ($(this).val())/100;
 	calcppO2(fO2);
 });
@@ -146,11 +146,24 @@ $('#ppO2_value').html(ppO2);
 <!-- -------------------------------------------------------------------------------- -->
 	
     </div> <!-- end data-role="tabs" -->
-  </div>
+	
+  </div> <!-- end role="main" class="ui-content" -->
+  
+<!-- -------------------------------------------------------------------------------- -->
+  
   <div data-role="footer">
-    <a href="#" class="ui-btn ui-btn-inline ui-icon-gear ui-btn-icon-left">Settings</a>
-    <p>Explorers Dive Club</p>
+	<fieldset>	
+		<div class="ui-block-a" style="padding-left: 1em;">
+			<a href="#" class="ui-btn ui-btn-inline ui-icon-gear ui-btn-icon-left">Settings</a>
+		</div>  
+		<div style="text-align: center;">
+			<p>Explorers Dive Club</p>
+		</div>		
+	</fieldset>
   </div>
+  
+  
+  
 </div>  <!-- end data-role="page" id="page1" -->
 
 
