@@ -163,14 +163,37 @@ $('#ppO2_value').html(ppO2);
 		<div class="ui-content" role="main">
 			<label for="flip-1">max ppO<sub>2</sub> (bar)</label>
 			<select name="flip-1" id="flip-1" data-role="slider">
-				<option value="1.4">1.4</option>
 				<option value="1.6">1.6</option>
+				<option value="1.4">1.4</option>
 			</select> 
-			<label for="flip-1">Units</label>
-			<select name="flip-1" id="flip-1" data-role="slider">
-				<option value="imperial">psi/ft</option>
+			<h3><span id="maxO2_value"></span>&nbsp;ATA</h3>
+			<script>
+			function displayVals() {
+				var O2value = $('#flip-1').val();
+				$('#maxO2_value').html(O2value);
+			}
+			$("select").change(displayVals);
+			displayVals();	
+			</script>
+
+
+			
+			<label for="flip-2">Units</label>
+			<select name="flip-2" id="flip-2" data-role="slider">
 				<option value="metric">bar/m</option>
-			</select> 			
+				<option value="imperial">psi/ft</option>
+			</select> 
+			<h3><span id="units"></span></h3>
+			<script>
+			function displayVals() {
+				var selection = $('#flip-2').val();			
+				$('#units').html(selection);	
+			}
+			$("select").change(displayVals);
+			displayVals();						
+			</script>
+			
+			
 		</div> 
 	</div>  
 
