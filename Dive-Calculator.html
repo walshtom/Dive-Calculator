@@ -41,6 +41,7 @@
 			<input type="range" name="slider-1" id="depth_slider" data-highlight="true" min="33" max="150" value="33"></input>	
 		</div>	
 		<h3 style="text-align: center;"><span id="BM_value">70</span>&nbsp;Percent Oxygen</h3>
+		<!-- <h3 style="text-align: center;"><span id="O2span"></span>&nbsp;Max Oxygen Partial Pressure</h3> -->
 </div>
 <script>
 $(document).on('change', '#depth_slider', function() {
@@ -50,6 +51,7 @@ $(document).on('change', '#depth_slider', function() {
 	ATA = ((depth1/33) + 1);
 	BM = Math.round(100 * (1.4/ATA));
 	$('#BM_value').html(BM);	
+	//$('#O2span').html(O2value);
 });
 </script>		  
 <!-- -------Maximum Operating Depth-------------------------------------------------- -->
@@ -117,7 +119,7 @@ $('#EAD_value').html(EAD);
 			<input type="range" name="slider-1" id="depth_slider" data-highlight="true" min="0" max="150" value="0"></input>		
 			<label for="slider-2">Percentage Oxygen</label>
 			<input type="range" name="slider-2" id="percentO2slider" data-highlight="true" min="21" max="40" value="21"></input>
-		<h2 style="text-align: center;"><span id="ppO2_value">0.21</span>&nbsp;Atmospheres Absolute</h2>					
+		<h2 style="text-align: center;"><span id="ppO2_value">0.21</span>&nbsp;Bar</h2>					
 		</div>				
 </div>
 <script>
@@ -161,15 +163,28 @@ $('#ppO2_value').html(ppO2);
 			<h1>Settings</h1>
 		</div>
 		<div class="ui-content" role="main">
-			<label for="flip-1">max ppO<sub>2</sub> (bar)</label>
-			<select name="flip-1" id="flip-1" data-role="slider">
-				<option value="1.6">1.6</option>
-				<option value="1.4">1.4</option>
-			</select> 
-			<h3><span id="maxO2_value"></span>&nbsp;ATA</h3>
+			<div style="float: left;">
+				<label for="flip-1">Max ppO<sub>2</sub> (bar)</label>
+			</div>
+			<div style="float: right;">
+				<select name="flip-1" id="flip-1" data-role="slider">
+					<option value="1.6">1.6</option>
+					<option value="1.4">1.4</option>
+				</select>
+			</div>
+			<br>
+			<h3 style="text-align: center"><span id="maxO2_value"></span>&nbsp;ATA</h3>
+			<span id="warning"></span>
 			<script>
+
 			function displayVals() {
-				var O2value = $('#flip-1').val();
+			var O2value = parseFloat($('#flip-1').val());				
+				console.log(O2value);
+				if (O2value == 1.6) {
+					console.log('Warning');
+					return;
+				}	
+				//window.O2value = O2value;
 				$('#maxO2_value').html(O2value);
 			}
 			$("select").change(displayVals);
@@ -177,13 +192,17 @@ $('#ppO2_value').html(ppO2);
 			</script>
 
 
-			
-			<label for="flip-2">Units</label>
-			<select name="flip-2" id="flip-2" data-role="slider">
-				<option value="Metric">bar/m</option>
-				<option value="Imperial">psi/ft</option>
-			</select> 
-			<h3><span id="units"></span></h3>
+			<div style="float: left;">
+				<label for="flip-2">Units</label>
+			</div>
+			<div style="float: right;">
+				<select name="flip-2" id="flip-2" data-role="slider">
+					<option value="Metric">bar/m</option>
+					<option value="Imperial">psi/ft</option>
+				</select>
+			</div>
+			<br>
+			<h3 style="text-align: center"><span id="units"></span></h3>
 			<script>
 			function displayVals() {
 				var selection = $('#flip-2').val();			
@@ -192,7 +211,7 @@ $('#ppO2_value').html(ppO2);
 			$("select").change(displayVals);
 			displayVals();						
 			</script>
-		</br>
+		<br>
 			<h4 style="text-align: center;">Accuracy is not guaranteed. Use at your own risk.</h4>
 			<h4 style="text-align: center;">&copy; 2016 Explorers Dive Club</h4>
 			
