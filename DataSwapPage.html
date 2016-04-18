@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Data Swap Demo</title>
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0"/>
+    <link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css"> 
+	<script src="js/jquery-1.12.3.min.js" type="text/javascript"></script>  
+	<script src="js/jquery.mobile-1.4.5.min.js" type="text/javascript"></script>
+</head>
+<body>
+<!-- -----------------------------First Page ------------------------------------------ -->
+    <div data-role="page" id="index">
+        <div data-theme="a" data-role="header">
+            <h3>First Page</h3>                            
+        </div>
+			<div data-role="content">
+				<a href="#second" data-role="button" id="change-page-button">Next Page</a>				
+			</div>
+        <div data-theme="a" data-role="footer" data-position="fixed"></div>        
+    </div>
+
+<!-- -----------------------------Second Page ------------------------------------------ -->
+	
+    <div data-role="page" id="second">
+        <div data-theme="a" data-role="header">
+            <a href="#index" class="ui-btn-left">Back</a>            
+            <h3>Second Page</h3>                      
+        </div>
+			<div data-role="content">
+				<div>
+					<label for="flip-1">Max ppO<sub>2</sub> (bar)</label>
+				</div>
+				<div>
+					<select name="flip-1" id="flip-1" data-role="slider">
+						<option value="1.6">1.6</option>
+						<option value="1.4" selected="selected">1.4</option>
+					</select>
+				</div>			
+			</div>
+        <div data-theme="a" data-role="footer" data-position="fixed"></div>
+    </div>
+
+<script>
+//original DON'T TOUCH
+//$(document).on('pagebeforeshow', '#index', function(){       
+    //$(document).on('click', '#change-page-button', function(){     
+        // store some data
+        //if(typeof(Storage)!=="undefined") {
+              //localStorage.firstname="Dragan";
+              //localStorage.lastname="Gaic";            
+        //}
+        // Change page
+        //$.mobile.changePage("#second");
+    //});    
+//});
+
+//modified
+$(document).on('pagebeforeshow', '#second', function(){
+		var O2value = ($('#flip-1').val());
+		console.log(O2value);
+    $(document).on('click', '#change-page-button', function(){     
+        if(typeof(Storage)!=="undefined") {
+              localStorage.ppO2 = O2value;            
+        }
+        $.mobile.changePage("#index");
+    });    
+});
+
+
+//original DON'T TOUCH
+//$(document).on('pagebeforeshow', '#second', function(){       
+    //alert('My name is ' + localStorage.firstname + ' ' + localStorage.lastname);
+    // Lets change localStorage data before we go to the next page
+    //localStorage.firstname="NewFirstName";
+    //localStorage.lastname="NewLastName";    
+//});
+
+
+//modified
+$(document).on('pagebeforeshow', '#index', function(){       
+    //alert(O2value);
+    //localStorage.firstname="NewFirstName";   
+});
+
+</script>	
+</body>
+</html>
