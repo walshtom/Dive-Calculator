@@ -169,7 +169,7 @@ $('#ppO2_value').html(ppO2);
 			<div style="float: right;">
 				<select name="flip-1" id="flip-1" data-role="slider">
 					<option value="1.6">1.6</option>
-					<option value="1.4">1.4</option>
+					<option value="1.4" selected="selected">1.4</option>
 				</select>
 			</div>
 			<br>
@@ -178,13 +178,12 @@ $('#ppO2_value').html(ppO2);
 			<script>
 
 			function displayVals() {
-			var O2value = parseFloat($('#flip-1').val());				
+			var O2value = ($('#flip-1').val());				
 				console.log(O2value);
-				if (O2value == 1.6) {
-					console.log('Warning');
-					return;
-				}	
-				//window.O2value = O2value;
+				//if (O2value == 1.6) {
+					//console.log('Warning');
+					//return;
+				//}	
 				$('#maxO2_value').html(O2value);
 			}
 			$("select").change(displayVals);
@@ -198,7 +197,7 @@ $('#ppO2_value').html(ppO2);
 			<div style="float: right;">
 				<select name="flip-2" id="flip-2" data-role="slider">
 					<option value="Metric">bar/m</option>
-					<option value="Imperial">psi/ft</option>
+					<option value="Imperial" selected="selected">psi/ft</option>
 				</select>
 			</div>
 			<br>
