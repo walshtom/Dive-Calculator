@@ -44,14 +44,18 @@
 		<!-- <h3><span id="O2span"></span>&nbsp;Max Oxygen Partial Pressure</h3> -->
 </div>
 
-<script>
-$(document).on('change', '#depth_slider', function() {
+<<script>
+	var depth1 = null;
 	var BM = null;
-	var depth1  = ($(this).val());	
+$(document).on('change', '#depth_slider', function() {
+	depth1  = ($(this).val());
+	calcBM(depth1);
+});		
+	
+function calcBM() {	
 	BM = Math.round(100 * (1.4/((depth1/33) + 1)));		
 	$('#BM_value').html(BM);	
-	//$('#O2span').html(O2value);
-});
+}
 </script>
 		  
 <!-- -------Maximum Operating Depth-------------------------------------------------- -->
@@ -64,14 +68,21 @@ $(document).on('change', '#depth_slider', function() {
 		</div>	
 		<h2><span id="MOD_value">187</span>&nbsp;Feet</h2>		
 </div>
+
 <script>
+	var MOD = null,
+		fO2 = null;
 $(document).on('change', '#percentO2slider', function() {
-	var MOD = null;
 	var fO2  = ($(this).val())/100;
+	calcMOD(fO2);
+});
+
+function calcMOD() {
 	MOD = Math.round((46.2/fO2)-33);
 	$('#MOD_value').html(MOD);	
-});
-</script>	  
+}
+</script>	 
+
 	  
 <!-- -------Equivalent Air Depth----------------------------------------------------- -->	  
 	  
@@ -99,12 +110,8 @@ $(document).on('change', '#percentO2slider', function() {
 });
 
 function calcEAD() {
-	var fN2 = null;
-		fN2 = (1 - fO2);
-		
-	var new_depth = null;
-		new_depth = (parseInt(depth2) + 33);
-
+	var fN2 = (1 - fO2);	
+	var new_depth = (parseInt(depth2) + 33);
 EAD = Math.round((((fN2) * (new_depth))/.79) - 33);
 $('#EAD_value').html(EAD);
 }
@@ -136,12 +143,9 @@ $(document).on('change', '#percentO2slider', function() {
 });
 
 function calcppO2() {
-	var pressure = null;
-	pressure = ((depth3/33) + 1);
-
+	var pressure = ((depth3/33) + 1);
 	ppO2 = (fO2 * pressure);
 	ppO2 = ppO2.toFixed(2);
-
 $('#ppO2_value').html(ppO2);
 }
 
@@ -174,18 +178,22 @@ $('#ppO2_value').html(ppO2);
 			</div>
 			<br>
 			<h3><span id="maxO2_value"></span>&nbsp;ATA</h3>
-			<span id="warning"></span>
-			<script>
 
+			
+			<script>
 			function displayVals() {
-			var O2value = ($('#flip-1').val());					
-				$('#maxO2_value').html(O2value);
+			var O2value = ($('#flip-1').val());			
+			$('#maxO2_value').html(O2value);
+			console.log(O2value);
 			}
 			$("select").change(displayVals);
-			displayVals();	
+			displayVals();			
 			</script>
 
 
+			
+			
+			
 			<div style="float: left;">
 				<label for="flip-2">Units</label>
 			</div>
