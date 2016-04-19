@@ -11,7 +11,7 @@
   <title>Scuba Gas Calculator</title>  
   <meta name="viewport" content="width=device-width, minimum-scale=1.0">
   <style type="text/css">
-    <!-- custom style overrides go here -->
+    h2,h3,h4 {text-align: center;}
   </style>
 </head>
 
@@ -35,13 +35,13 @@
 <!-- -------Best Nitrox Mix--------------------------------------------------------- -->	  
 	  
 <div id="tab-1">
-	<h2 style="text-align: center;">Best Nitrox Mix</h2>
+	<h2>Best Nitrox Mix</h2>
 		<div>
 			<label for="slider-1">Depth</label>
 			<input type="range" name="slider-1" id="depth_slider" data-highlight="true" min="33" max="150" value="33"></input>	
 		</div>	
-		<h2 style="text-align: center;"><span id="BM_value">70</span>&nbsp;Percent Oxygen</h2>
-		<!-- <h3 style="text-align: center;"><span id="O2span"></span>&nbsp;Max Oxygen Partial Pressure</h3> -->
+		<h2><span id="BM_value">70</span>&nbsp;Percent Oxygen</h2>
+		<!-- <h3><span id="O2span"></span>&nbsp;Max Oxygen Partial Pressure</h3> -->
 </div>
 
 <script>
@@ -57,12 +57,12 @@ $(document).on('change', '#depth_slider', function() {
 <!-- -------Maximum Operating Depth-------------------------------------------------- -->
 	  
 <div id="tab-2">
-	<h2 style="text-align: center;">Maximum Operating Depth</h2>
+	<h2>Maximum Operating Depth</h2>
 		<div id="test">	
 			<label for="slider-2">Percentage Oxygen</label>
 			<input type="range" name="slider-2" id="percentO2slider" data-highlight="true" min="21" max="40" value="21"></input>	
 		</div>	
-		<h2 style="text-align: center;"><span id="MOD_value">187</span>&nbsp;Feet</h2>		
+		<h2><span id="MOD_value">187</span>&nbsp;Feet</h2>		
 </div>
 <script>
 $(document).on('change', '#percentO2slider', function() {
@@ -76,14 +76,14 @@ $(document).on('change', '#percentO2slider', function() {
 <!-- -------Equivalent Air Depth----------------------------------------------------- -->	  
 	  
 <div id="tab-3">
-	<h2 style="text-align: center;">Equivalent Air Depth</h2>
+	<h2>Equivalent Air Depth</h2>
 		<div>
 			<label for="slider-1">Depth</label>
 			<input type="range" class="EADslider" name="slider-1" id="depth_slider" data-highlight="true" min="33" max="150" value="33"></input>		
 			<label for="slider-2">Percentage Oxygen</label>
 			<input type="range" class="EADslider" name="slider-2" id="percentO2slider" data-highlight="true" min="21" max="40" value="21"></input>	
 		</div>		
-		<h2 style="text-align: center;"><span id="EAD_value">33</span>&nbsp;Feet</h2>	
+		<h2><span id="EAD_value">33</span>&nbsp;Feet</h2>	
 </div>		
 <script>
 	var depth2 = 33;
@@ -113,13 +113,13 @@ $('#EAD_value').html(EAD);
 <!-- -------Partial Pressure of Oxygen----------------------------------------------- -->
 			
 <div id="tab-4">
-	<h2 style="text-align: center;">Partial Pressure of Oxygen</h2>
+	<h2>Partial Pressure of Oxygen</h2>
 		<div>
 			<label for="slider-1">Depth</label>
 			<input type="range" name="slider-1" id="depth_slider" data-highlight="true" min="0" max="150" value="0"></input>		
 			<label for="slider-2">Percentage Oxygen</label>
 			<input type="range" name="slider-2" id="percentO2slider" data-highlight="true" min="21" max="40" value="21"></input>
-		<h2 style="text-align: center;"><span id="ppO2_value">0.21</span>&nbsp;Bar</h2>					
+		<h2><span id="ppO2_value">0.21</span>&nbsp;Bar</h2>					
 		</div>				
 </div>
 <script>
@@ -173,7 +173,7 @@ $('#ppO2_value').html(ppO2);
 				</select>
 			</div>
 			<br>
-			<h3 style="text-align: center"><span id="maxO2_value"></span>&nbsp;ATA</h3>
+			<h3><span id="maxO2_value"></span>&nbsp;ATA</h3>
 			<span id="warning"></span>
 			<script>
 
@@ -206,8 +206,8 @@ $('#ppO2_value').html(ppO2);
 			displayVals();						
 			</script>
 		<br>
-			<h4 style="text-align: center;">Accuracy is not guaranteed. Use at your own risk.</h4>
-			<h4 style="text-align: center;">&copy; 2016 Explorers Dive Club</h4>
+			<h4>Accuracy is not guaranteed. Use at your own risk.</h4>
+			<h4>&copy; 2016 Explorers Dive Club</h4>
 			
 		</div> 
 	</div>  
