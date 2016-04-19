@@ -43,20 +43,17 @@
 		<h2 style="text-align: center;"><span id="BM_value">70</span>&nbsp;Percent Oxygen</h2>
 		<!-- <h3 style="text-align: center;"><span id="O2span"></span>&nbsp;Max Oxygen Partial Pressure</h3> -->
 </div>
+
 <script>
 $(document).on('change', '#depth_slider', function() {
 	var BM = null;
-	var depth1  = ($(this).val());
-	//ATA = null;
-	//ATA = ((depth1/33) + 1);
-	//BM = Math.round(100 * (1.4/ATA));
-	
-	BM = Math.round(100 * (1.4/((depth1/33) + 1)));	
-	
+	var depth1  = ($(this).val());	
+	BM = Math.round(100 * (1.4/((depth1/33) + 1)));		
 	$('#BM_value').html(BM);	
 	//$('#O2span').html(O2value);
 });
-</script>		  
+</script>
+		  
 <!-- -------Maximum Operating Depth-------------------------------------------------- -->
 	  
 <div id="tab-2">
