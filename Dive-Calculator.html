@@ -41,18 +41,19 @@
 			<input type="range" name="slider-1" id="depth_slider" data-highlight="true" min="33" max="150" value="33"></input>	
 		</div>	
 		<h2><span id="BM_value">70</span>&nbsp;Percent Oxygen</h2>
-		<!-- <h3><span id="O2span"></span>&nbsp;Max Oxygen Partial Pressure</h3> -->
+
 </div>
 
-<<script>
-	var depth1 = null;
-	var BM = null;
+<script>
+	var depth1 = "",
+	    BM = "";
+
 $(document).on('change', '#depth_slider', function() {
 	depth1  = ($(this).val());
 	calcBM(depth1);
 });		
 	
-function calcBM() {	
+function calcBM() {
 	BM = Math.round(100 * (1.4/((depth1/33) + 1)));		
 	$('#BM_value').html(BM);	
 }
@@ -70,8 +71,8 @@ function calcBM() {
 </div>
 
 <script>
-	var MOD = null,
-		fO2 = null;
+	var MOD = "",
+		fO2 = 0.21;
 $(document).on('change', '#percentO2slider', function() {
 	var fO2  = ($(this).val())/100;
 	calcMOD(fO2);
@@ -97,9 +98,9 @@ function calcMOD() {
 		<h2><span id="EAD_value">33</span>&nbsp;Feet</h2>	
 </div>		
 <script>
-	var depth2 = 33;
-	var fO2 = .21;
-	var EAD = null;
+	var depth2 = 33,
+	    fO2 = .21,
+	    EAD = "";
 $(document).on('change', '#depth_slider', function() {	
 	depth2 = ($(this).val());
 	calcEAD(depth2);
@@ -130,9 +131,9 @@ $('#EAD_value').html(EAD);
 		</div>				
 </div>
 <script>
-	var depth3 = 0;
-	var fO2 = .21;
-	var ppO2 = null;
+	var depth3 = 0,
+	    fO2 = .21,
+	    ppO2 = "";
 $(document).on('change', '#depth_slider', function() {	
 	depth3 = ($(this).val());
 	calcppO2(depth3);
