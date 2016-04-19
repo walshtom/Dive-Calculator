@@ -47,9 +47,12 @@
 $(document).on('change', '#depth_slider', function() {
 	var BM = null;
 	var depth1  = ($(this).val());
-	ATA = null;
-	ATA = ((depth1/33) + 1);
-	BM = Math.round(100 * (1.4/ATA));
+	//ATA = null;
+	//ATA = ((depth1/33) + 1);
+	//BM = Math.round(100 * (1.4/ATA));
+	
+	BM = Math.round(100 * (1.4/((depth1/33) + 1)));	
+	
 	$('#BM_value').html(BM);	
 	//$('#O2span').html(O2value);
 });
