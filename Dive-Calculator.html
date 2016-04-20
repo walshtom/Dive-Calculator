@@ -44,20 +44,26 @@
 
 </div>
 
-<script>
-	var depth1 = "",
-	    BM = "";
 
+
+<script>    
 $(document).on('change', '#depth_slider', function() {
-	depth1  = ($(this).val());
-	calcBM(depth1);
-});		
-	
-function calcBM() {
-	BM = Math.round(100 * (1.4/((depth1/33) + 1)));		
-	$('#BM_value').html(BM);	
+	var ppO2Max = ($('#flip-1').val());	
+	console.log(ppO2Max);
+	var depth1  = ($(this).val());
+	calcBM(ppO2Max, depth1);
+});
+
+function calcBM(ppO2Max, depth1) {
+	BM = Math.round(100 * ((ppO2Max)/((depth1/33) + 1)));	
+	$('#BM_value').html(BM);
 }
 </script>
+
+
+
+
+
 		  
 <!-- -------Maximum Operating Depth-------------------------------------------------- -->
 	  
@@ -71,18 +77,17 @@ function calcBM() {
 </div>
 
 <script>
-	var MOD = "",
-		fO2 = 0.21;
 $(document).on('change', '#percentO2slider', function() {
+	//var MOD = "";
 	var fO2  = ($(this).val())/100;
 	calcMOD(fO2);
 });
 
-function calcMOD() {
+function calcMOD(fO2) {
 	MOD = Math.round((46.2/fO2)-33);
 	$('#MOD_value').html(MOD);	
 }
-</script>	 
+</script>
 
 	  
 <!-- -------Equivalent Air Depth----------------------------------------------------- -->	  
@@ -99,8 +104,7 @@ function calcMOD() {
 </div>		
 <script>
 	var depth2 = 33,
-	    fO2 = .21,
-	    EAD = "";
+	    fO2 = .21;
 $(document).on('change', '#depth_slider', function() {	
 	depth2 = ($(this).val());
 	calcEAD(depth2);
@@ -116,8 +120,8 @@ function calcEAD() {
 EAD = Math.round((((fN2) * (new_depth))/.79) - 33);
 $('#EAD_value').html(EAD);
 }
-</script>
-	
+</script> 
+
 <!-- -------Partial Pressure of Oxygen----------------------------------------------- -->
 			
 <div id="tab-4">
@@ -127,13 +131,13 @@ $('#EAD_value').html(EAD);
 			<input type="range" name="slider-1" id="depth_slider" data-highlight="true" min="0" max="150" value="0"></input>		
 			<label for="slider-2">Percentage Oxygen</label>
 			<input type="range" name="slider-2" id="percentO2slider" data-highlight="true" min="21" max="40" value="21"></input>
-		<h2><span id="ppO2_value">0.21</span>&nbsp;Bar</h2>					
+		<h2><span id="ppO2_value">0.21</span>&nbsp;Bar</h2>	
+		<h2 id="warning"></h2>	
 		</div>				
 </div>
 <script>
 	var depth3 = 0,
-	    fO2 = .21,
-	    ppO2 = "";
+	    fO2 = .21;
 $(document).on('change', '#depth_slider', function() {	
 	depth3 = ($(this).val());
 	calcppO2(depth3);
@@ -145,9 +149,13 @@ $(document).on('change', '#percentO2slider', function() {
 
 function calcppO2() {
 	var pressure = ((depth3/33) + 1);
-	ppO2 = (fO2 * pressure);
-	ppO2 = ppO2.toFixed(2);
+	ppO2 = (fO2 * pressure).toFixed(2);
+	//ppO2 = ppO2.toFixed(2);
 $('#ppO2_value').html(ppO2);
+if (ppO2 > 1.4) {
+console.log('Warning!');
+$("#warning").html("Caution! Do not exceed 1.4 Bar during<br> the working part of the dive. Use for decompression only.");
+} 
 }
 
 </script> 
@@ -190,7 +198,6 @@ $('#ppO2_value').html(ppO2);
 			$("select").change(displayVals);
 			displayVals();			
 			</script>
-
 
 			
 			
