@@ -37,8 +37,8 @@
 <div id="tab-1">
 	<h2>Best Nitrox Mix</h2>
 		<div>
-			<label for="slider-1">Depth</label>
-			<input type="range" name="slider-1" id="depth_slider" data-highlight="true" min="33" max="150" value="33"></input>	
+			<label for="slider-1">Depth in feet</label>
+			<input type="range" name="slider-1" id="BMdepth_slider" data-highlight="true" min="33" max="150" value="33"></input>	
 		</div>	
 		<h2><span id="BM_value">70</span>&nbsp;Percent Oxygen</h2>
 
@@ -47,9 +47,8 @@
 
 
 <script>    
-$(document).on('change', '#depth_slider', function() {
+$(document).on('change', '#BMdepth_slider', function() {
 	var ppO2Max = ($('#flip-1').val());	
-	console.log(ppO2Max);
 	var depth1  = ($(this).val());
 	calcBM(ppO2Max, depth1);
 });
@@ -95,7 +94,7 @@ function calcMOD(fO2) {
 <div id="tab-3">
 	<h2>Equivalent Air Depth</h2>
 		<div>
-			<label for="slider-1">Depth</label>
+			<label for="slider-1">Depth in Feet</label>
 			<input type="range" class="EADslider" name="slider-1" id="depth_slider" data-highlight="true" min="33" max="150" value="33"></input>		
 			<label for="slider-2">Percentage Oxygen</label>
 			<input type="range" class="EADslider" name="slider-2" id="percentO2slider" data-highlight="true" min="21" max="40" value="21"></input>	
@@ -104,7 +103,7 @@ function calcMOD(fO2) {
 </div>		
 <script>
 	var depth2 = 33,
-	    fO2 = .21;
+	    fO2 = 0.21;
 $(document).on('change', '#depth_slider', function() {	
 	depth2 = ($(this).val());
 	calcEAD(depth2);
@@ -127,16 +126,16 @@ $('#EAD_value').html(EAD);
 <div id="tab-4">
 	<h2>Partial Pressure of Oxygen</h2>
 		<div>
-			<label for="slider-1">Depth</label>
-			<input type="range" name="slider-1" id="depth_slider" data-highlight="true" min="0" max="150" value="0"></input>		
+			<label for="slider-1">Depth in Feet</label>
+			<input type="range" name="slider-1" id="depth_slider" data-highlight="true" min="33" max="150" value="33"></input>		
 			<label for="slider-2">Percentage Oxygen</label>
 			<input type="range" name="slider-2" id="percentO2slider" data-highlight="true" min="21" max="40" value="21"></input>
-		<h2><span id="ppO2_value">0.21</span>&nbsp;Bar</h2>	
-		<h2 id="warning"></h2>	
+		<h2><span id="ppO2_value">0.42</span>&nbsp;Bar</h2>	
+		<h3 id="warning"></h3>	
 		</div>				
 </div>
 <script>
-	var depth3 = 0,
+	var depth3 = 33,
 	    fO2 = .21;
 $(document).on('change', '#depth_slider', function() {	
 	depth3 = ($(this).val());
@@ -154,7 +153,7 @@ function calcppO2() {
 $('#ppO2_value').html(ppO2);
 if (ppO2 > 1.4) {
 console.log('Warning!');
-$("#warning").html("Caution! Do not exceed 1.4 Bar during<br> the working part of the dive. Use for decompression only.");
+$("#warning").html("Caution! Do not exceed 1.4 Bar during<br> the working part of the dive.<br>Use for decompression only.");
 } 
 }
 
@@ -189,15 +188,22 @@ $("#warning").html("Caution! Do not exceed 1.4 Bar during<br> the working part o
 			<h3><span id="maxO2_value"></span>&nbsp;ATA</h3>
 
 			
-			<script>
-			function displayVals() {
-			var O2value = ($('#flip-1').val());			
-			$('#maxO2_value').html(O2value);
-			console.log(O2value);
-			}
-			$("select").change(displayVals);
-			displayVals();			
-			</script>
+<script>
+function displayVals() {
+	var ppO2Max = ($('#flip-1').val());
+	$("#maxO2_value").html(ppO2Max);
+	var depth1 = $('#BMdepth_slider').val();
+	$("#flip-1").change(calcBM(ppO2Max, depth1));
+}
+
+$("#flip-1").change(displayVals);
+displayVals();
+
+function calcBM(ppO2Max, depth1) {
+BM = Math.round(100 * ((ppO2Max)/((depth1/33) + 1)));	
+$('#BM_value').html(BM);
+}
+</script>
 
 			
 			
@@ -213,13 +219,17 @@ $("#warning").html("Caution! Do not exceed 1.4 Bar during<br> the working part o
 			</div>
 			<br>
 			<h3 style="text-align: center"><span id="units"></span></h3>
+			
 			<script>
 			function displayVals() {
 				var selection = $('#flip-2').val();			
-				$('#units').html(selection);	
+				$('#units').html(selection);
 			}
-			$("select").change(displayVals);
-			displayVals();						
+			$("#flip-2").change(displayVals);
+			displayVals();
+			
+
+			
 			</script>
 		<br>
 			<h4>Accuracy is not guaranteed. Use at your own risk.</h4>
@@ -232,3 +242,34 @@ $("#warning").html("Caution! Do not exceed 1.4 Bar during<br> the working part o
 
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
