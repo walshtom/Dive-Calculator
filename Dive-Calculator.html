@@ -37,8 +37,8 @@
 <div id="tab-1">
 	<h2>Best Nitrox Mix</h2>
 		<div>
-			<label for="slider-1">Depth in feet</label>
-			<input type="range" name="slider-1" id="BMdepth_slider" data-highlight="true" min="33" max="150" value="33"></input>	
+			<label for="slider-1" class="sliderLabel">Depth in feet</label>
+			<input type="range" name="slider-1" id="BMdepth_slider" class="sliderValue" data-highlight="true" min="33" max="148" value="33"></input>	
 		</div>	
 		<h2><span id="BM_value">70</span>&nbsp;Percent Oxygen</h2>
 
@@ -87,17 +87,16 @@ function calcMOD(fO2) {
 	$('#MOD_value').html(MOD);	
 }
 </script>
-
-	  
+  
 <!-- -------Equivalent Air Depth----------------------------------------------------- -->	  
 	  
 <div id="tab-3">
 	<h2>Equivalent Air Depth</h2>
 		<div>
-			<label for="slider-1">Depth in Feet</label>
-			<input type="range" class="EADslider" name="slider-1" id="depth_slider" data-highlight="true" min="33" max="150" value="33"></input>		
+			<label for="slider-1" class="sliderLabel">Depth in Feet</label>
+			<input type="range" name="slider-1" id="depth_slider" class="sliderValue" data-highlight="true" min="33" max="148" value="33"></input>		
 			<label for="slider-2">Percentage Oxygen</label>
-			<input type="range" class="EADslider" name="slider-2" id="percentO2slider" data-highlight="true" min="21" max="40" value="21"></input>	
+			<input type="range" name="slider-2" id="percentO2slider" data-highlight="true" min="21" max="40" value="21"></input>	
 		</div>		
 		<h2><span id="EAD_value">33</span>&nbsp;Feet</h2>	
 </div>		
@@ -126,11 +125,11 @@ $('#EAD_value').html(EAD);
 <div id="tab-4">
 	<h2>Partial Pressure of Oxygen</h2>
 		<div>
-			<label for="slider-1">Depth in Feet</label>
-			<input type="range" name="slider-1" id="depth_slider" data-highlight="true" min="33" max="150" value="33"></input>		
+			<label for="slider-1" class="sliderLabel">Depth in Feet</label>
+			<input type="range" name="slider-1" id="depth_slider" class="sliderValue" data-highlight="true" min="33" max="148" value="33"></input>		
 			<label for="slider-2">Percentage Oxygen</label>
 			<input type="range" name="slider-2" id="percentO2slider" data-highlight="true" min="21" max="40" value="21"></input>
-		<h2><span id="ppO2_value">0.42</span>&nbsp;Bar</h2>	
+		<h2><span id="ppO2_value" class="pressureUnits">0.42</span>&nbsp;</h2>	
 		<h3 id="warning"></h3>	
 		</div>				
 </div>
@@ -218,27 +217,49 @@ $('#BM_value').html(BM);
 				</select>
 			</div>
 			<br>
-			<h3 style="text-align: center"><span id="units"></span></h3>
+			<h3><span id="units"></span></h3>
 			
-			<script>
-			function displayVals() {
-				var selection = $('#flip-2').val();			
-				$('#units').html(selection);
-			}
-			$("#flip-2").change(displayVals);
-			displayVals();
-			
+<script>
+$("#flip-2").change(displayVals);
+displayVals();
 
-			
-			</script>
+function displayVals() {
+	var selection = $('#flip-2').val();
+	console.log(selection);
+	$('#units').html(selection);	
+	}
+
+$('select#flip-2').change(function() {
+	var selection = $('#flip-2').val();
+	console.log('changed');				
+	if (selection == "Metric") {
+		console.log('its Metric');
+		chgToMetric();}
+	if (selection == "Imperial") {
+		console.log('its Imperial');
+		chgToImperial();}			
+});				
+
+function chgToMetric() {
+	console.log('in chgToMetric');			
+	//$('.sliderLabel').text("Depth in Meters");
+	//$('.pressureUnits').text("Bar");				
+	//$('.sliderValue').prop({min: 10, max: 45, value: 10}).slider("refresh");
+}
+
+function chgToImperial() {
+	console.log('in chgToImperial');
+	//$('.sliderLabel').text("Depth in Feet");
+	//$('.pressureUnits').text("Atmospheres Absolute (ATA)");
+	//$('.sliderValue').prop({min: 33, max: 148, value: 33}).slider("refresh");					
+}
+
+</script>
 		<br>
 			<h4>Accuracy is not guaranteed. Use at your own risk.</h4>
-			<h4>&copy; 2016 Explorers Dive Club</h4>
-			
+			<h4>&copy; 2016 Explorers Dive Club</h4>			
 		</div> 
 	</div>  
-
-
 
 </body>
 </html>
