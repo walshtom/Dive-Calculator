@@ -12,8 +12,8 @@
   <meta name="viewport" content="width=device-width, minimum-scale=1.0">
   <style type="text/css">
     h2,h3,h4 {text-align: center;}
-	#warning {color: dark yellow;}
-	#danger {color: red;}
+	#warning {color: red;}
+	#danger {color: blue;}
   </style>
 </head>
 
@@ -145,11 +145,10 @@ function calcppO2() {
 	ppO2 = (fO2 * pressure).toFixed(2);
 	//ppO2 = ppO2.toFixed(2);
 $('#ppO2_value').html(ppO2);
-if (ppO2 > 1.4) {
+if (ppO2 > 1.4 && ppO2 <= 1.6) {
 $("#warning").html("Caution! Do not exceed 1.4 (ATA)/Bar during<br> the working part of the dive.<br>Use for decompression only.");
-}
-if (ppO2 > 1.6) {
-$("#danger").html("Danger! Partial pressures of oxygen greater than 1.6 (ATA)/Bar pose serious risk of siezure.");
+} else if (ppO2 > 1.6) {
+$("#warning").html("Danger! Partial pressures of oxygen<br>greater than 1.6 (ATA)/Bar<br>pose serious risk of siezure.");
 }  
 }
 
