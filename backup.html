@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+                       
+<head>
+  <meta charset="utf-8">
+  <meta name="author" content="Tom Walsh">  
+  <link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css"> 
+  <link rel="icon" href="img/favicon.ico">  
+  <script src="js/jquery-1.12.3.min.js" type="text/javascript"></script>  
+  <script src="js/jquery.mobile-1.4.5.min.js" type="text/javascript"></script>
+  <title>Scuba Gas Calculator</title>  
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0">
+  <style type="text/css">
+    h2,h3,h4 {text-align: center;}
+	#warning {color: red;}
+  </style>
+</head>
+
+<body>
+	
+<div data-role="page" id="main">
+  <div data-role="header" data-position="fixed">
+    <h1>Nitrox Calculator</h1>
+  </div>
+  <div role="main" class="ui-content">
+    <div data-role="tabs">
+      <div data-role="navbar">
+        <ul>
+          <li><a href="#tab-1" class="ui-btn-active">Best Mix</a></li>
+          <li><a href="#tab-2">MOD</a></li>
+          <li><a href="#tab-3">EAD</a></li>
+		  <li><a href="#tab-4">ppO<sub>2</sub></a></li>
+        </ul>
+      </div>
+	  
+<!-- -------Best Nitrox Mix--------------------------------------------------------- -->	  
+	  
+<div id="tab-1">
+	<h2>Best Nitrox Mix</h2>
+		<div>
+			<label for="slider-1" class="sliderLabel">Depth in feet</label>
+			<input type="range" name="slider-1" id="BMdepth_slider" class="sliderValue" data-highlight="true" min="33" max="148" value="33"></input>	
+		</div>	
+		<h2><span id="BM_value"></span>&nbsp;Percent Oxygen</h2>
+</div>
+		  
+<!-- -------Maximum Operating Depth-------------------------------------------------- -->
+	  
+<div id="tab-2">
+	<h2>Maximum Operating Depth</h2>
+		<div id="test">	
+			<label for="slider-2">Percentage Oxygen</label>
+			<input type="range" name="slider-2" id="MODpercentO2slider" data-highlight="true" min="21" max="40" value="21"></input>	
+		</div>	
+		<h2><span id="MOD_value"></span>&nbsp;<span class="depthUnits">Feet</span></h2>		
+</div>
+  
+<!-- -------Equivalent Air Depth----------------------------------------------------- -->	  
+	  
+<div id="tab-3">
+	<h2>Equivalent Air Depth</h2>
+		<div>
+			<label for="slider-1" class="sliderLabel">Depth in Feet</label>
+			<input type="range" name="slider-1" id="EADdepth_slider" class="sliderValue" data-highlight="true" min="33" max="148" value="33"></input>		
+			<label for="slider-2">Percentage Oxygen</label>
+			<input type="range" name="slider-2" id="EADpercentO2slider" data-highlight="true" min="21" max="40" value="21"></input>	
+		</div>		
+		<h2><span id="EAD_value"></span>&nbsp;<span class="depthUnits">Feet</span></h2>	
+</div>		
+
+<!-- -------Partial Pressure of Oxygen----------------------------------------------- -->
+			
+<div id="tab-4">
+	<h2>Partial Pressure of Oxygen</h2>
+		<div>
+			<label for="slider-1" class="sliderLabel">Depth in Feet</label>
+			<input type="range" name="slider-1" id="PPO2depth_slider" class="sliderValue" data-highlight="true" min="33" max="148" value="33"></input>		
+			<label for="slider-2">Percentage Oxygen</label>
+			<input type="range" name="slider-2" id="PPO2percentO2slider" data-highlight="true" min="21" max="40" value="21"></input>
+		<h2><span id="ppO2_value"></span>&nbsp;<span class="pressureUnits">Atmospheres Absolute (ATA)</span></h2>	
+		<h3 id="warning"></h3>	
+		</div>				
+</div>
+
+<!-- -------------------------------------------------------------------------------- -->	
+</div> <!-- end data-role="tabs" -->
+</div> <!-- end role="main" class="ui-content" --> 
+<!-- -------------Footer------------------------------------------------------------- -->
+		
+	<div data-role="footer" class="ui-grid-b" data-position="fixed">  	
+		<div class="ui-block-a" style="text-align: left;"><a href="#settings" class="ui-btn ui-btn-inline ui-icon-gear ui-btn-icon-left" style="margin-left: 2em;">Settings</a></div>
+		<div class="ui-block-b" style="text-align: center; padding-top: .8em;">Explorers Dive Club</div>		
+	</div>
+	
+</div> <!-- end data-role="page" id="main" -->		
+
+<!-- -------------Settings------------------------------------------------------------- -->
+ 
+	<div id="settings" data-role="page" data-dialog="true" data-close-btn="left" data-theme="a">
+		<div data-role="header">
+			<h1>Settings</h1>
+		</div>
+		<div class="ui-content" role="main">
+			<div style="float: left;">
+				<label for="flip-1">Max ppO<sub>2</sub> (bar)</label>
+			</div>
+			<div style="float: right;">
+				<select name="flip-1" id="flip-1" data-role="slider">
+					<option value="1.6">1.6</option>
+					<option value="1.4" selected="selected">1.4</option>
+				</select>
+			</div>
+			<br>
+			<h3><span id="maxO2_value"></span>&nbsp;ATA</h3>
+			
+			<div style="float: left;">
+				<label for="flip-2">Units</label>
+			</div>
+			<div style="float: right;">
+				<select name="flip-2" id="flip-2" data-role="slider">
+					<option value="Metric">bar/m</option>
+					<option value="Imperial" selected="selected">psi/ft</option>
+				</select>
+			</div>
+			<br>
+			<h3><span id="units"></span></h3>
+		<br>
+			<h4>Accuracy is not guaranteed. Use at your own risk.</h4>
+			<h4>&copy; 2016 Explorers Dive Club</h4>			
+		</div> 
+	</div>  
+		
+<script>
+	var PPO2depth = 33, //Globals used by
+	    EADdepth = 33,  //calcEAD	
+		fO2 = .21;      //and calcppO2
+
+$(document).ready(function() {
+	$("#MOD_value").html('187');
+	$("#EAD_value").html('33');	
+	$("#ppO2_value").html('0.42');	
+});
+		
+//Best Nitrox Mix   
+$(document).on('change', '#BMdepth_slider', function() {
+	var ppO2Max = ($("#flip-1").val());	
+	var BMdepth  = ($(this).val());
+	calcBM(ppO2Max, BMdepth);
+	});
+
+function calcBM(ppO2Max, BMdepth) {
+	console.log('in calcBM');
+	BM = Math.round(100 * ((ppO2Max)/((BMdepth/33) + 1)));	
+	$('#BM_value').html(BM);
+	} //End Best Nitrox Mix 
+
+// Maximum Operating Depth
+$(document).on('change', '#MODpercentO2slider', function() {
+	var fO2  = ($(this).val())/100;
+	calcMOD(fO2);
+	});
+
+function calcMOD(fO2) {
+	MOD = Math.round((46.2/fO2)-33);
+	$("#MOD_value").html(MOD);	
+	} // End Maximum Operating Depth
+
+$(document).on('change', '#EADdepth_slider', function() {	
+	EADdepth = ($(this).val());
+	calcEAD(EADdepth);
+	});
+	
+$(document).on('change', '#EADpercentO2slider', function() {
+	fO2 = ($(this).val())/100;
+	calcEAD(fO2);
+	});
+
+function calcEAD() {
+	var fN2 = (1 - fO2);	
+	var new_depth = (parseInt(EADdepth) + 33);
+	EAD = Math.round((((fN2) * (new_depth))/.79) - 33);
+	$('#EAD_value').html(EAD);
+	} // End Equivalent Air Depth
+
+// Partial Pressure of Oxygen
+$(document).on('change', '#PPO2depth_slider', function() {	
+	PPO2depth = ($(this).val());
+	calcppO2(PPO2depth);
+	});
+
+$(document).on('change', '#PPO2percentO2slider', function() {
+	fO2 = ($(this).val())/100;
+	calcppO2(fO2);
+	});
+
+function calcppO2() {
+	var pressure = ((PPO2depth/33) + 1);
+	ppO2 = (fO2 * pressure).toFixed(2);
+	$("#ppO2_value").html(ppO2);
+	if (ppO2 > 1.4 && ppO2 <= 1.6) {
+	$("#warning").html("Caution! Do not exceed 1.4 (ATA)/Bar during<br> the working part of the dive.<br>Use for decompression only.");
+	} else if (ppO2 > 1.6) {
+	$("#warning").html("Danger! Partial pressures of oxygen<br>greater than 1.6 (ATA)/Bar<br>pose serious risk of siezure.");
+	}  
+	} // End Partial Pressure of Oxygen
+
+$("#flip-1").change(displayMaxPPO2);	//This statement autoexecutes on page load
+	displayMaxPPO2();	
+	
+function displayMaxPPO2() {
+	var ppO2Max = ($("#flip-1").val());
+	$("#maxO2_value").html(ppO2Max);
+	var BMdepth = $('#BMdepth_slider').val();
+	console.log(ppO2Max);
+	console.log(BMdepth);
+	$("#flip-1").change(calcBM(ppO2Max, BMdepth));
+	}
+
+function displayUnits() {
+	var selection = $("#flip-2").val();
+	$('#units').html(selection);	
+	}
+
+$("select#flip-2").change(function() {
+	var selection = $("#flip-2").val();			
+	if (selection == "Metric") {
+		chgToMetric();}
+	if (selection == "Imperial") {
+		chgToImperial();}			
+	});				
+
+function chgToMetric() {
+	console.log('in chgToMetric');			
+	$(".sliderLabel").text("Depth in Meters");
+	$(".pressureUnits").text("Bar");
+	$(".depthUnits").text("Meters");	
+	$(".sliderValue").prop({min: 10, max: 45, value: 10}).slider("refresh");
+	}
+
+function chgToImperial() {
+	console.log('in chgToImperial');
+	$(".sliderLabel").text("Depth in Feet");
+	$(".pressureUnits").text("Atmospheres Absolute (ATA)");
+	$(".depthUnits").text("Feet");
+	$(".sliderValue").prop({min: 33, max: 148, value: 33}).slider("refresh");					
+	}
+</script>
+</body>
+</html>
