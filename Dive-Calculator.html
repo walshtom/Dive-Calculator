@@ -134,7 +134,13 @@
 	var PPO2depth = 33, //Globals used by
 	    EADdepth = 33,  //calcEAD	
 		fO2 = .21;      //and calcppO2
-	   		
+
+$(document).ready(function() {
+	$("#MOD_value").html('187');
+	$("#EAD_value").html('33');	
+	$("#ppO2_value").html('0.42');	
+});
+		
 //Best Nitrox Mix   
 $(document).on('change', '#BMdepth_slider', function() {
 	var ppO2Max = ($("#flip-1").val());	
@@ -209,10 +215,6 @@ function displayMaxPPO2() {
 	console.log(BMdepth);
 	$("#flip-1").change(calcBM(ppO2Max, BMdepth));
 	}
-
-//$("#flip-2").change(displayUnits);   DOES THIS CRAP DO ANYTHING?
-	//console.log('Do I autoexecute?'); DOES THIS CRAP DO ANYTHING?
-	//displayUnits(); DOES THIS CRAP DO ANYTHING?
 
 function displayUnits() {
 	var selection = $("#flip-2").val();
