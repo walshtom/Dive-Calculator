@@ -17,6 +17,8 @@
 </head>
 
 <body>
+
+<!-- -------Header--------------------------------------------------------- -->	
 	
 <div data-role="page" id="main">
   <div data-role="header" data-position="fixed">
@@ -129,9 +131,12 @@
 			<h4>&copy; 2016 Explorers Dive Club</h4>			
 		</div> 
 	</div>  
-		
+
+<!-- -------------JavaScript------------------------------------------------------------- -->
+	
 <script>
-	var PPO2depth = 33, //Globals used by
+	 //x = "",
+	var	PPO2depth = 33, //Globals used by
 	    EADdepth = 33,  //calcEAD	
 		fO2 = .21;      //and calcppO2
 
@@ -139,7 +144,7 @@ $(document).ready(function() {
 	$("#MOD_value").html('187');
 	$("#EAD_value").html('33');	
 	$("#ppO2_value").html('0.42');	
-});
+	});
 		
 //Best Nitrox Mix   
 $(document).on('change', '#BMdepth_slider', function() {
@@ -149,8 +154,8 @@ $(document).on('change', '#BMdepth_slider', function() {
 	});
 
 function calcBM(ppO2Max, BMdepth) {
-	console.log('in calcBM');
-	BM = Math.round(100 * ((ppO2Max)/((BMdepth/33) + 1)));	
+	console.log('x = ' + x);
+	BM = Math.round(100 * ((ppO2Max)/((BMdepth/x) + 1)));	
 	$('#BM_value').html(BM);
 	} //End Best Nitrox Mix 
 
@@ -230,7 +235,9 @@ $("select#flip-2").change(function() {
 	});				
 
 function chgToMetric() {
-	console.log('in chgToMetric');			
+	console.log('in chgToMetric');
+	var x = 10;
+	console.log(x);
 	$(".sliderLabel").text("Depth in Meters");
 	$(".pressureUnits").text("Bar");
 	$(".depthUnits").text("Meters");	
@@ -239,6 +246,8 @@ function chgToMetric() {
 
 function chgToImperial() {
 	console.log('in chgToImperial');
+	var x = 33;
+	console.log(x);	
 	$(".sliderLabel").text("Depth in Feet");
 	$(".pressureUnits").text("Atmospheres Absolute (ATA)");
 	$(".depthUnits").text("Feet");
