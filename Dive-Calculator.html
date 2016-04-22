@@ -132,12 +132,12 @@
 		
 <script>
 	var PPO2depth = 33, //Globals used by
-	    fO2 = .21;      //calcEAD and calcppO2
-
-		
+	    EADdepth = 33,  //calcEAD	
+		fO2 = .21;      //and calcppO2
+	   		
 //Best Nitrox Mix   
 $(document).on('change', '#BMdepth_slider', function() {
-	var ppO2Max = ($('#flip-1').val());	
+	var ppO2Max = ($("#flip-1").val());	
 	var BMdepth  = ($(this).val());
 	calcBM(ppO2Max, BMdepth);
 	});
@@ -156,16 +156,14 @@ $(document).on('change', '#MODpercentO2slider', function() {
 
 function calcMOD(fO2) {
 	MOD = Math.round((46.2/fO2)-33);
-	$('#MOD_value').html(MOD);	
+	$("#MOD_value").html(MOD);	
 	} // End Maximum Operating Depth
 
-// Equivalent Air Depth
-	var EADdepth = 33,
-	    fO2 = 0.21;
 $(document).on('change', '#EADdepth_slider', function() {	
 	EADdepth = ($(this).val());
 	calcEAD(EADdepth);
 	});
+	
 $(document).on('change', '#EADpercentO2slider', function() {
 	fO2 = ($(this).val())/100;
 	calcEAD(fO2);
@@ -179,7 +177,6 @@ function calcEAD() {
 	} // End Equivalent Air Depth
 
 // Partial Pressure of Oxygen
-
 $(document).on('change', '#PPO2depth_slider', function() {	
 	PPO2depth = ($(this).val());
 	calcppO2(PPO2depth);
@@ -193,7 +190,7 @@ $(document).on('change', '#PPO2percentO2slider', function() {
 function calcppO2() {
 	var pressure = ((PPO2depth/33) + 1);
 	ppO2 = (fO2 * pressure).toFixed(2);
-	$('#ppO2_value').html(ppO2);
+	$("#ppO2_value").html(ppO2);
 	if (ppO2 > 1.4 && ppO2 <= 1.6) {
 	$("#warning").html("Caution! Do not exceed 1.4 (ATA)/Bar during<br> the working part of the dive.<br>Use for decompression only.");
 	} else if (ppO2 > 1.6) {
@@ -201,8 +198,11 @@ function calcppO2() {
 	}  
 	} // End Partial Pressure of Oxygen
 
+$("#flip-1").change(displayMaxPPO2);	//This statement autoexecutes on page load
+	displayMaxPPO2();	
+	
 function displayMaxPPO2() {
-	var ppO2Max = ($('#flip-1').val());
+	var ppO2Max = ($("#flip-1").val());
 	$("#maxO2_value").html(ppO2Max);
 	var BMdepth = $('#BMdepth_slider').val();
 	console.log(ppO2Max);
@@ -210,19 +210,17 @@ function displayMaxPPO2() {
 	$("#flip-1").change(calcBM(ppO2Max, BMdepth));
 	}
 
-$("#flip-1").change(displayMaxPPO2);
-	displayMaxPPO2();
-
-$("#flip-2").change(displayUnits);
-	displayUnits();
+//$("#flip-2").change(displayUnits);   DOES THIS CRAP DO ANYTHING?
+	//console.log('Do I autoexecute?'); DOES THIS CRAP DO ANYTHING?
+	//displayUnits(); DOES THIS CRAP DO ANYTHING?
 
 function displayUnits() {
-	var selection = $('#flip-2').val();
+	var selection = $("#flip-2").val();
 	$('#units').html(selection);	
 	}
 
-$('select#flip-2').change(function() {
-	var selection = $('#flip-2').val();			
+$("select#flip-2").change(function() {
+	var selection = $("#flip-2").val();			
 	if (selection == "Metric") {
 		chgToMetric();}
 	if (selection == "Imperial") {
@@ -231,18 +229,18 @@ $('select#flip-2').change(function() {
 
 function chgToMetric() {
 	console.log('in chgToMetric');			
-	$('.sliderLabel').text("Depth in Meters");
-	$('.pressureUnits').text("Bar");
-	$('.depthUnits').text("Meters");	
-	$('.sliderValue').prop({min: 10, max: 45, value: 10}).slider("refresh");
+	$(".sliderLabel").text("Depth in Meters");
+	$(".pressureUnits").text("Bar");
+	$(".depthUnits").text("Meters");	
+	$(".sliderValue").prop({min: 10, max: 45, value: 10}).slider("refresh");
 	}
 
 function chgToImperial() {
 	console.log('in chgToImperial');
-	$('.sliderLabel').text("Depth in Feet");
-	$('.pressureUnits').text("Atmospheres Absolute (ATA)");
-	$('.depthUnits').text("Feet");
-	$('.sliderValue').prop({min: 33, max: 148, value: 33}).slider("refresh");					
+	$(".sliderLabel").text("Depth in Feet");
+	$(".pressureUnits").text("Atmospheres Absolute (ATA)");
+	$(".depthUnits").text("Feet");
+	$(".sliderValue").prop({min: 33, max: 148, value: 33}).slider("refresh");					
 	}
 </script>
 
