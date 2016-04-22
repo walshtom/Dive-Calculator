@@ -12,6 +12,8 @@
   <meta name="viewport" content="width=device-width, minimum-scale=1.0">
   <style type="text/css">
     h2,h3,h4 {text-align: center;}
+	#warning {color: dark yellow;}
+	#danger {color: red;}
   </style>
 </head>
 
@@ -40,11 +42,8 @@
 			<label for="slider-1" class="sliderLabel">Depth in feet</label>
 			<input type="range" name="slider-1" id="BMdepth_slider" class="sliderValue" data-highlight="true" min="33" max="148" value="33"></input>	
 		</div>	
-		<h2><span id="BM_value">70</span>&nbsp;Percent Oxygen</h2>
-
+		<h2><span id="BM_value"></span>&nbsp;Percent Oxygen</h2>
 </div>
-
-
 
 <script>    
 $(document).on('change', '#BMdepth_slider', function() {
@@ -59,10 +58,6 @@ function calcBM(ppO2Max, depth1) {
 }
 </script>
 
-
-
-
-
 		  
 <!-- -------Maximum Operating Depth-------------------------------------------------- -->
 	  
@@ -72,7 +67,7 @@ function calcBM(ppO2Max, depth1) {
 			<label for="slider-2">Percentage Oxygen</label>
 			<input type="range" name="slider-2" id="percentO2slider" data-highlight="true" min="21" max="40" value="21"></input>	
 		</div>	
-		<h2><span id="MOD_value">187</span>&nbsp;Feet</h2>		
+		<h2><span id="MOD_value"></span>&nbsp;<span class="depthUnits">Feet</span></h2>		
 </div>
 
 <script>
@@ -98,7 +93,7 @@ function calcMOD(fO2) {
 			<label for="slider-2">Percentage Oxygen</label>
 			<input type="range" name="slider-2" id="percentO2slider" data-highlight="true" min="21" max="40" value="21"></input>	
 		</div>		
-		<h2><span id="EAD_value">33</span>&nbsp;Feet</h2>	
+		<h2><span id="EAD_value"></span>&nbsp;<span class="depthUnits">Feet</span></h2>	
 </div>		
 <script>
 	var depth2 = 33,
@@ -129,7 +124,7 @@ $('#EAD_value').html(EAD);
 			<input type="range" name="slider-1" id="depth_slider" class="sliderValue" data-highlight="true" min="33" max="148" value="33"></input>		
 			<label for="slider-2">Percentage Oxygen</label>
 			<input type="range" name="slider-2" id="percentO2slider" data-highlight="true" min="21" max="40" value="21"></input>
-		<h2><span id="ppO2_value" class="pressureUnits">0.42</span>&nbsp;</h2>	
+		<h2><span id="ppO2_value"></span>&nbsp;<span class="pressureUnits">Atmospheres Absolute (ATA)</span></h2>	
 		<h3 id="warning"></h3>	
 		</div>				
 </div>
@@ -151,9 +146,11 @@ function calcppO2() {
 	//ppO2 = ppO2.toFixed(2);
 $('#ppO2_value').html(ppO2);
 if (ppO2 > 1.4) {
-console.log('Warning!');
-$("#warning").html("Caution! Do not exceed 1.4 Bar during<br> the working part of the dive.<br>Use for decompression only.");
-} 
+$("#warning").html("Caution! Do not exceed 1.4 (ATA)/Bar during<br> the working part of the dive.<br>Use for decompression only.");
+}
+if (ppO2 > 1.6) {
+$("#danger").html("Danger! Partial pressures of oxygen greater than 1.6 (ATA)/Bar pose serious risk of siezure.");
+}  
 }
 
 </script> 
@@ -199,13 +196,11 @@ $("#flip-1").change(displayVals);
 displayVals();
 
 function calcBM(ppO2Max, depth1) {
+	console.log('in second calcBM');
 BM = Math.round(100 * ((ppO2Max)/((depth1/33) + 1)));	
 $('#BM_value').html(BM);
 }
 </script>
-
-			
-			
 			
 			<div style="float: left;">
 				<label for="flip-2">Units</label>
@@ -225,33 +220,31 @@ displayVals();
 
 function displayVals() {
 	var selection = $('#flip-2').val();
-	console.log(selection);
 	$('#units').html(selection);	
 	}
 
 $('select#flip-2').change(function() {
-	var selection = $('#flip-2').val();
-	console.log('changed');				
+	var selection = $('#flip-2').val();			
 	if (selection == "Metric") {
-		console.log('its Metric');
 		chgToMetric();}
 	if (selection == "Imperial") {
-		console.log('its Imperial');
 		chgToImperial();}			
 });				
 
 function chgToMetric() {
 	console.log('in chgToMetric');			
-	//$('.sliderLabel').text("Depth in Meters");
-	//$('.pressureUnits').text("Bar");				
-	//$('.sliderValue').prop({min: 10, max: 45, value: 10}).slider("refresh");
+	$('.sliderLabel').text("Depth in Meters");
+	$('.pressureUnits').text("Bar");
+	$('.depthUnits').text("Meters");	
+	$('.sliderValue').prop({min: 10, max: 45, value: 10}).slider("refresh");
 }
 
 function chgToImperial() {
 	console.log('in chgToImperial');
-	//$('.sliderLabel').text("Depth in Feet");
-	//$('.pressureUnits').text("Atmospheres Absolute (ATA)");
-	//$('.sliderValue').prop({min: 33, max: 148, value: 33}).slider("refresh");					
+	$('.sliderLabel').text("Depth in Feet");
+	$('.pressureUnits').text("Atmospheres Absolute (ATA)");
+	$('.depthUnits').text("Feet");
+	$('.sliderValue').prop({min: 33, max: 148, value: 33}).slider("refresh");					
 }
 
 </script>
