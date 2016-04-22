@@ -129,102 +129,94 @@
 			<h4>&copy; 2016 Explorers Dive Club</h4>			
 		</div> 
 	</div>  
-
-
-			
-<script>
-	var depth3 = 33, //Globals used by
-	    fO2 = .21;   //calcEAD and calcppO2
-
-//on tab change call reset sliders
-
-//reset sliders
-function resetSliders() {
-$("#mySlider").slider("value", $("#mySlider").slider("option", "min") );
-
-}
 		
+<script>
+	var PPO2depth = 33, //Globals used by
+	    fO2 = .21;      //calcEAD and calcppO2
+
 		
 //Best Nitrox Mix   
 $(document).on('change', '#BMdepth_slider', function() {
 	var ppO2Max = ($('#flip-1').val());	
-	var depth1  = ($(this).val());
-	calcBM(ppO2Max, depth1);
-});
+	var BMdepth  = ($(this).val());
+	calcBM(ppO2Max, BMdepth);
+	});
 
-function calcBM(ppO2Max, depth1) {
-	BM = Math.round(100 * ((ppO2Max)/((depth1/33) + 1)));	
+function calcBM(ppO2Max, BMdepth) {
+	console.log('in calcBM');
+	BM = Math.round(100 * ((ppO2Max)/((BMdepth/33) + 1)));	
 	$('#BM_value').html(BM);
-} //End Best Nitrox Mix 
+	} //End Best Nitrox Mix 
 
 // Maximum Operating Depth
 $(document).on('change', '#MODpercentO2slider', function() {
-	//var MOD = "";
 	var fO2  = ($(this).val())/100;
 	calcMOD(fO2);
-});
+	});
 
 function calcMOD(fO2) {
 	MOD = Math.round((46.2/fO2)-33);
 	$('#MOD_value').html(MOD);	
-} // End Maximum Operating Depth
+	} // End Maximum Operating Depth
 
 // Equivalent Air Depth
-	var depth2 = 33,
+	var EADdepth = 33,
 	    fO2 = 0.21;
 $(document).on('change', '#EADdepth_slider', function() {	
-	depth2 = ($(this).val());
-	calcEAD(depth2);
-});
+	EADdepth = ($(this).val());
+	calcEAD(EADdepth);
+	});
 $(document).on('change', '#EADpercentO2slider', function() {
 	fO2 = ($(this).val())/100;
 	calcEAD(fO2);
-});
+	});
 
 function calcEAD() {
 	var fN2 = (1 - fO2);	
-	var new_depth = (parseInt(depth2) + 33);
-EAD = Math.round((((fN2) * (new_depth))/.79) - 33);
-$('#EAD_value').html(EAD);
-} // End Equivalent Air Depth
+	var new_depth = (parseInt(EADdepth) + 33);
+	EAD = Math.round((((fN2) * (new_depth))/.79) - 33);
+	$('#EAD_value').html(EAD);
+	} // End Equivalent Air Depth
 
 // Partial Pressure of Oxygen
 
 $(document).on('change', '#PPO2depth_slider', function() {	
-	depth3 = ($(this).val());
-	calcppO2(depth3);
-});
+	PPO2depth = ($(this).val());
+	calcppO2(PPO2depth);
+	});
+
 $(document).on('change', '#PPO2percentO2slider', function() {
 	fO2 = ($(this).val())/100;
 	calcppO2(fO2);
-});
+	});
 
 function calcppO2() {
-	var pressure = ((depth3/33) + 1);
+	var pressure = ((PPO2depth/33) + 1);
 	ppO2 = (fO2 * pressure).toFixed(2);
-	//ppO2 = ppO2.toFixed(2);
-$('#ppO2_value').html(ppO2);
-if (ppO2 > 1.4 && ppO2 <= 1.6) {
-$("#warning").html("Caution! Do not exceed 1.4 (ATA)/Bar during<br> the working part of the dive.<br>Use for decompression only.");
-} else if (ppO2 > 1.6) {
-$("#warning").html("Danger! Partial pressures of oxygen<br>greater than 1.6 (ATA)/Bar<br>pose serious risk of siezure.");
-}  
-} // End Partial Pressure of Oxygen
+	$('#ppO2_value').html(ppO2);
+	if (ppO2 > 1.4 && ppO2 <= 1.6) {
+	$("#warning").html("Caution! Do not exceed 1.4 (ATA)/Bar during<br> the working part of the dive.<br>Use for decompression only.");
+	} else if (ppO2 > 1.6) {
+	$("#warning").html("Danger! Partial pressures of oxygen<br>greater than 1.6 (ATA)/Bar<br>pose serious risk of siezure.");
+	}  
+	} // End Partial Pressure of Oxygen
 
-function displayVals() {
+function displayMaxPPO2() {
 	var ppO2Max = ($('#flip-1').val());
 	$("#maxO2_value").html(ppO2Max);
-	var depth1 = $('#BMdepth_slider').val();
-	$("#flip-1").change(calcBM(ppO2Max, depth1));
-}
+	var BMdepth = $('#BMdepth_slider').val();
+	console.log(ppO2Max);
+	console.log(BMdepth);
+	$("#flip-1").change(calcBM(ppO2Max, BMdepth));
+	}
 
-$("#flip-1").change(displayVals);
-displayVals();
+$("#flip-1").change(displayMaxPPO2);
+	displayMaxPPO2();
 
-$("#flip-2").change(displayVals);
-displayVals();
+$("#flip-2").change(displayUnits);
+	displayUnits();
 
-function displayVals() {
+function displayUnits() {
 	var selection = $('#flip-2').val();
 	$('#units').html(selection);	
 	}
@@ -235,7 +227,7 @@ $('select#flip-2').change(function() {
 		chgToMetric();}
 	if (selection == "Imperial") {
 		chgToImperial();}			
-});				
+	});				
 
 function chgToMetric() {
 	console.log('in chgToMetric');			
@@ -243,7 +235,7 @@ function chgToMetric() {
 	$('.pressureUnits').text("Bar");
 	$('.depthUnits').text("Meters");	
 	$('.sliderValue').prop({min: 10, max: 45, value: 10}).slider("refresh");
-}
+	}
 
 function chgToImperial() {
 	console.log('in chgToImperial');
@@ -251,7 +243,7 @@ function chgToImperial() {
 	$('.pressureUnits').text("Atmospheres Absolute (ATA)");
 	$('.depthUnits').text("Feet");
 	$('.sliderValue').prop({min: 33, max: 148, value: 33}).slider("refresh");					
-}
+	}
 </script>
 
 </body>
