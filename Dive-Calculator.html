@@ -13,7 +13,6 @@
   <style type="text/css">
     h2,h3,h4 {text-align: center;}
 	#warning {color: red;}
-	#danger {color: blue;}
   </style>
 </head>
 
@@ -44,20 +43,6 @@
 		</div>	
 		<h2><span id="BM_value"></span>&nbsp;Percent Oxygen</h2>
 </div>
-
-<script>    
-$(document).on('change', '#BMdepth_slider', function() {
-	var ppO2Max = ($('#flip-1').val());	
-	var depth1  = ($(this).val());
-	calcBM(ppO2Max, depth1);
-});
-
-function calcBM(ppO2Max, depth1) {
-	BM = Math.round(100 * ((ppO2Max)/((depth1/33) + 1)));	
-	$('#BM_value').html(BM);
-}
-</script>
-
 		  
 <!-- -------Maximum Operating Depth-------------------------------------------------- -->
 	  
@@ -65,23 +50,10 @@ function calcBM(ppO2Max, depth1) {
 	<h2>Maximum Operating Depth</h2>
 		<div id="test">	
 			<label for="slider-2">Percentage Oxygen</label>
-			<input type="range" name="slider-2" id="percentO2slider" data-highlight="true" min="21" max="40" value="21"></input>	
+			<input type="range" name="slider-2" id="MODpercentO2slider" data-highlight="true" min="21" max="40" value="21"></input>	
 		</div>	
 		<h2><span id="MOD_value"></span>&nbsp;<span class="depthUnits">Feet</span></h2>		
 </div>
-
-<script>
-$(document).on('change', '#percentO2slider', function() {
-	//var MOD = "";
-	var fO2  = ($(this).val())/100;
-	calcMOD(fO2);
-});
-
-function calcMOD(fO2) {
-	MOD = Math.round((46.2/fO2)-33);
-	$('#MOD_value').html(MOD);	
-}
-</script>
   
 <!-- -------Equivalent Air Depth----------------------------------------------------- -->	  
 	  
@@ -89,31 +61,12 @@ function calcMOD(fO2) {
 	<h2>Equivalent Air Depth</h2>
 		<div>
 			<label for="slider-1" class="sliderLabel">Depth in Feet</label>
-			<input type="range" name="slider-1" id="depth_slider" class="sliderValue" data-highlight="true" min="33" max="148" value="33"></input>		
+			<input type="range" name="slider-1" id="EADdepth_slider" class="sliderValue" data-highlight="true" min="33" max="148" value="33"></input>		
 			<label for="slider-2">Percentage Oxygen</label>
-			<input type="range" name="slider-2" id="percentO2slider" data-highlight="true" min="21" max="40" value="21"></input>	
+			<input type="range" name="slider-2" id="EADpercentO2slider" data-highlight="true" min="21" max="40" value="21"></input>	
 		</div>		
 		<h2><span id="EAD_value"></span>&nbsp;<span class="depthUnits">Feet</span></h2>	
 </div>		
-<script>
-	var depth2 = 33,
-	    fO2 = 0.21;
-$(document).on('change', '#depth_slider', function() {	
-	depth2 = ($(this).val());
-	calcEAD(depth2);
-});
-$(document).on('change', '#percentO2slider', function() {
-	fO2 = ($(this).val())/100;
-	calcEAD(fO2);
-});
-
-function calcEAD() {
-	var fN2 = (1 - fO2);	
-	var new_depth = (parseInt(depth2) + 33);
-EAD = Math.round((((fN2) * (new_depth))/.79) - 33);
-$('#EAD_value').html(EAD);
-}
-</script> 
 
 <!-- -------Partial Pressure of Oxygen----------------------------------------------- -->
 			
@@ -121,38 +74,14 @@ $('#EAD_value').html(EAD);
 	<h2>Partial Pressure of Oxygen</h2>
 		<div>
 			<label for="slider-1" class="sliderLabel">Depth in Feet</label>
-			<input type="range" name="slider-1" id="depth_slider" class="sliderValue" data-highlight="true" min="33" max="148" value="33"></input>		
+			<input type="range" name="slider-1" id="PPO2depth_slider" class="sliderValue" data-highlight="true" min="33" max="148" value="33"></input>		
 			<label for="slider-2">Percentage Oxygen</label>
-			<input type="range" name="slider-2" id="percentO2slider" data-highlight="true" min="21" max="40" value="21"></input>
+			<input type="range" name="slider-2" id="PPO2percentO2slider" data-highlight="true" min="21" max="40" value="21"></input>
 		<h2><span id="ppO2_value"></span>&nbsp;<span class="pressureUnits">Atmospheres Absolute (ATA)</span></h2>	
 		<h3 id="warning"></h3>	
 		</div>				
 </div>
-<script>
-	var depth3 = 33,
-	    fO2 = .21;
-$(document).on('change', '#depth_slider', function() {	
-	depth3 = ($(this).val());
-	calcppO2(depth3);
-});
-$(document).on('change', '#percentO2slider', function() {
-	fO2 = ($(this).val())/100;
-	calcppO2(fO2);
-});
 
-function calcppO2() {
-	var pressure = ((depth3/33) + 1);
-	ppO2 = (fO2 * pressure).toFixed(2);
-	//ppO2 = ppO2.toFixed(2);
-$('#ppO2_value').html(ppO2);
-if (ppO2 > 1.4 && ppO2 <= 1.6) {
-$("#warning").html("Caution! Do not exceed 1.4 (ATA)/Bar during<br> the working part of the dive.<br>Use for decompression only.");
-} else if (ppO2 > 1.6) {
-$("#warning").html("Danger! Partial pressures of oxygen<br>greater than 1.6 (ATA)/Bar<br>pose serious risk of siezure.");
-}  
-}
-
-</script> 
 <!-- -------------------------------------------------------------------------------- -->	
 </div> <!-- end data-role="tabs" -->
 </div> <!-- end role="main" class="ui-content" --> 
@@ -164,6 +93,8 @@ $("#warning").html("Danger! Partial pressures of oxygen<br>greater than 1.6 (ATA
 	</div>
 	
 </div> <!-- end data-role="page" id="main" -->		
+
+<!-- -------------Settings------------------------------------------------------------- -->
  
 	<div id="settings" data-role="page" data-dialog="true" data-close-btn="left" data-theme="a">
 		<div data-role="header">
@@ -181,25 +112,6 @@ $("#warning").html("Danger! Partial pressures of oxygen<br>greater than 1.6 (ATA
 			</div>
 			<br>
 			<h3><span id="maxO2_value"></span>&nbsp;ATA</h3>
-
-			
-<script>
-function displayVals() {
-	var ppO2Max = ($('#flip-1').val());
-	$("#maxO2_value").html(ppO2Max);
-	var depth1 = $('#BMdepth_slider').val();
-	$("#flip-1").change(calcBM(ppO2Max, depth1));
-}
-
-$("#flip-1").change(displayVals);
-displayVals();
-
-function calcBM(ppO2Max, depth1) {
-	console.log('in second calcBM');
-BM = Math.round(100 * ((ppO2Max)/((depth1/33) + 1)));	
-$('#BM_value').html(BM);
-}
-</script>
 			
 			<div style="float: left;">
 				<label for="flip-2">Units</label>
@@ -212,8 +124,103 @@ $('#BM_value').html(BM);
 			</div>
 			<br>
 			<h3><span id="units"></span></h3>
+		<br>
+			<h4>Accuracy is not guaranteed. Use at your own risk.</h4>
+			<h4>&copy; 2016 Explorers Dive Club</h4>			
+		</div> 
+	</div>  
+
+
 			
 <script>
+	var depth3 = 33, //Globals used by
+	    fO2 = .21;   //calcEAD and calcppO2
+
+//on tab change call reset sliders
+
+//reset sliders
+function resetSliders() {
+$("#mySlider").slider("value", $("#mySlider").slider("option", "min") );
+
+}
+		
+		
+//Best Nitrox Mix   
+$(document).on('change', '#BMdepth_slider', function() {
+	var ppO2Max = ($('#flip-1').val());	
+	var depth1  = ($(this).val());
+	calcBM(ppO2Max, depth1);
+});
+
+function calcBM(ppO2Max, depth1) {
+	BM = Math.round(100 * ((ppO2Max)/((depth1/33) + 1)));	
+	$('#BM_value').html(BM);
+} //End Best Nitrox Mix 
+
+// Maximum Operating Depth
+$(document).on('change', '#MODpercentO2slider', function() {
+	//var MOD = "";
+	var fO2  = ($(this).val())/100;
+	calcMOD(fO2);
+});
+
+function calcMOD(fO2) {
+	MOD = Math.round((46.2/fO2)-33);
+	$('#MOD_value').html(MOD);	
+} // End Maximum Operating Depth
+
+// Equivalent Air Depth
+	var depth2 = 33,
+	    fO2 = 0.21;
+$(document).on('change', '#EADdepth_slider', function() {	
+	depth2 = ($(this).val());
+	calcEAD(depth2);
+});
+$(document).on('change', '#EADpercentO2slider', function() {
+	fO2 = ($(this).val())/100;
+	calcEAD(fO2);
+});
+
+function calcEAD() {
+	var fN2 = (1 - fO2);	
+	var new_depth = (parseInt(depth2) + 33);
+EAD = Math.round((((fN2) * (new_depth))/.79) - 33);
+$('#EAD_value').html(EAD);
+} // End Equivalent Air Depth
+
+// Partial Pressure of Oxygen
+
+$(document).on('change', '#PPO2depth_slider', function() {	
+	depth3 = ($(this).val());
+	calcppO2(depth3);
+});
+$(document).on('change', '#PPO2percentO2slider', function() {
+	fO2 = ($(this).val())/100;
+	calcppO2(fO2);
+});
+
+function calcppO2() {
+	var pressure = ((depth3/33) + 1);
+	ppO2 = (fO2 * pressure).toFixed(2);
+	//ppO2 = ppO2.toFixed(2);
+$('#ppO2_value').html(ppO2);
+if (ppO2 > 1.4 && ppO2 <= 1.6) {
+$("#warning").html("Caution! Do not exceed 1.4 (ATA)/Bar during<br> the working part of the dive.<br>Use for decompression only.");
+} else if (ppO2 > 1.6) {
+$("#warning").html("Danger! Partial pressures of oxygen<br>greater than 1.6 (ATA)/Bar<br>pose serious risk of siezure.");
+}  
+} // End Partial Pressure of Oxygen
+
+function displayVals() {
+	var ppO2Max = ($('#flip-1').val());
+	$("#maxO2_value").html(ppO2Max);
+	var depth1 = $('#BMdepth_slider').val();
+	$("#flip-1").change(calcBM(ppO2Max, depth1));
+}
+
+$("#flip-1").change(displayVals);
+displayVals();
+
 $("#flip-2").change(displayVals);
 displayVals();
 
@@ -245,13 +252,7 @@ function chgToImperial() {
 	$('.depthUnits').text("Feet");
 	$('.sliderValue').prop({min: 33, max: 148, value: 33}).slider("refresh");					
 }
-
 </script>
-		<br>
-			<h4>Accuracy is not guaranteed. Use at your own risk.</h4>
-			<h4>&copy; 2016 Explorers Dive Club</h4>			
-		</div> 
-	</div>  
 
 </body>
 </html>
