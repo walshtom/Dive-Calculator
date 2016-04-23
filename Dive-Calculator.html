@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
-                       
+<html lang="en">                      
 <head>
   <meta charset="utf-8">
   <meta name="author" content="Tom Walsh">  
@@ -8,6 +7,7 @@
   <link rel="icon" href="img/favicon.ico">  
   <script src="js/jquery-1.12.3.min.js" type="text/javascript"></script>  
   <script src="js/jquery.mobile-1.4.5.min.js" type="text/javascript"></script>
+  <script src="js/diveCalculator.js" type="text/javascript"></script></script>
   <title>Scuba Gas Calculator</title>  
   <meta name="viewport" content="width=device-width, minimum-scale=1.0">
   <style type="text/css">
@@ -131,129 +131,6 @@
 			<h4>&copy; 2016 Explorers Dive Club</h4>			
 		</div> 
 	</div>  
-
-<!-- -------------JavaScript------------------------------------------------------------- -->
-	
-<script>
-	 //x = "",
-	var	PPO2depth = 33, //Globals used by
-	    EADdepth = 33,  //calcEAD	
-		fO2 = .21;      //and calcppO2
-
-$(document).ready(function() {
-	$("#MOD_value").html('187');
-	$("#EAD_value").html('33');	
-	$("#ppO2_value").html('0.42');	
-	});
-		
-//Best Nitrox Mix   
-$(document).on('change', '#BMdepth_slider', function() {
-	var ppO2Max = ($("#flip-1").val());	
-	var BMdepth  = ($(this).val());
-	calcBM(ppO2Max, BMdepth);
-	});
-
-function calcBM(ppO2Max, BMdepth) {
-	console.log('x = ' + x);
-	BM = Math.round(100 * ((ppO2Max)/((BMdepth/x) + 1)));	
-	$('#BM_value').html(BM);
-	} //End Best Nitrox Mix 
-
-// Maximum Operating Depth
-$(document).on('change', '#MODpercentO2slider', function() {
-	var fO2  = ($(this).val())/100;
-	calcMOD(fO2);
-	});
-
-function calcMOD(fO2) {
-	MOD = Math.round((46.2/fO2)-33);
-	$("#MOD_value").html(MOD);	
-	} // End Maximum Operating Depth
-
-$(document).on('change', '#EADdepth_slider', function() {	
-	EADdepth = ($(this).val());
-	calcEAD(EADdepth);
-	});
-	
-$(document).on('change', '#EADpercentO2slider', function() {
-	fO2 = ($(this).val())/100;
-	calcEAD(fO2);
-	});
-
-function calcEAD() {
-	var fN2 = (1 - fO2);	
-	var new_depth = (parseInt(EADdepth) + 33);
-	EAD = Math.round((((fN2) * (new_depth))/.79) - 33);
-	$('#EAD_value').html(EAD);
-	} // End Equivalent Air Depth
-
-// Partial Pressure of Oxygen
-$(document).on('change', '#PPO2depth_slider', function() {	
-	PPO2depth = ($(this).val());
-	calcppO2(PPO2depth);
-	});
-
-$(document).on('change', '#PPO2percentO2slider', function() {
-	fO2 = ($(this).val())/100;
-	calcppO2(fO2);
-	});
-
-function calcppO2() {
-	var pressure = ((PPO2depth/33) + 1);
-	ppO2 = (fO2 * pressure).toFixed(2);
-	$("#ppO2_value").html(ppO2);
-	if (ppO2 > 1.4 && ppO2 <= 1.6) {
-	$("#warning").html("Caution! Do not exceed 1.4 (ATA)/Bar during<br> the working part of the dive.<br>Use for decompression only.");
-	} else if (ppO2 > 1.6) {
-	$("#warning").html("Danger! Partial pressures of oxygen<br>greater than 1.6 (ATA)/Bar<br>pose serious risk of siezure.");
-	}  
-	} // End Partial Pressure of Oxygen
-
-$("#flip-1").change(displayMaxPPO2);	//This statement autoexecutes on page load
-	displayMaxPPO2();	
-	
-function displayMaxPPO2() {
-	var ppO2Max = ($("#flip-1").val());
-	$("#maxO2_value").html(ppO2Max);
-	var BMdepth = $('#BMdepth_slider').val();
-	console.log(ppO2Max);
-	console.log(BMdepth);
-	$("#flip-1").change(calcBM(ppO2Max, BMdepth));
-	}
-
-function displayUnits() {
-	var selection = $("#flip-2").val();
-	$('#units').html(selection);	
-	}
-
-$("select#flip-2").change(function() {
-	var selection = $("#flip-2").val();			
-	if (selection == "Metric") {
-		chgToMetric();}
-	if (selection == "Imperial") {
-		chgToImperial();}			
-	});				
-
-function chgToMetric() {
-	console.log('in chgToMetric');
-	var x = 10;
-	console.log(x);
-	$(".sliderLabel").text("Depth in Meters");
-	$(".pressureUnits").text("Bar");
-	$(".depthUnits").text("Meters");	
-	$(".sliderValue").prop({min: 10, max: 45, value: 10}).slider("refresh");
-	}
-
-function chgToImperial() {
-	console.log('in chgToImperial');
-	var x = 33;
-	console.log(x);	
-	$(".sliderLabel").text("Depth in Feet");
-	$(".pressureUnits").text("Atmospheres Absolute (ATA)");
-	$(".depthUnits").text("Feet");
-	$(".sliderValue").prop({min: 33, max: 148, value: 33}).slider("refresh");					
-	}
-</script>
 
 </body>
 </html>
