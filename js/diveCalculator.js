@@ -1,8 +1,8 @@
 $(document).ready(function() {
 	$("span#BM_value").text(70);	     	//On document ready default is Imperial units
-	$("span#MOD_value").text(187);	     	//This sets default values of output  
+	$("span#MOD_value").text(187);	     	//This sets default values of output in the four tabs 
 	$("span#EAD_value").text(33);	
-	$("span#MOD_value").text(0.42);		
+	$("span#ppO2_value").text(0.42);		
 	var selection = $("#flip-2").val();  	//Detect Metric or Imperial units
 	if (selection == "Metric") {
 		chgToMetric();}					 	//Do Metric setup
@@ -103,8 +103,8 @@ $(document).on('change', '#PPO2depth_slider', function() {
 		DepthConst = 10;}		
 	if (selection == "Imperial") {
 		DepthConst = 33;}	
-	fO2 = $("#ppO2percentO2slider").val();	//Read the ppO2 fO2 slider
-	calcppO2(PPO2depth, fO2, DepthConst);		//	Send variables off for partial pressure of oxygen calculation
+	fO2 = $("#ppO2percentO2slider").val();		//Read the ppO2 fO2 slider
+	calcppO2(PPO2depth, fO2, DepthConst);		//Send variables off for partial pressure of oxygen calculation
 	});
 
 $(document).on('change', '#PPO2percentO2slider', function() {
@@ -115,7 +115,7 @@ $(document).on('change', '#PPO2percentO2slider', function() {
 		DepthConst = 10;}		
 	if (selection == "Imperial") {
 		DepthConst = 33;}
-	ppO2depth = $("#EADdepth_slider").val();	//Read the ppO2 depth slider
+	ppO2depth = $("#ppO2depth_slider").val();	//Read the ppO2 depth slider
 	calcppO2(PPO2depth, fO2, DepthConst);		//Send variables off for partial pressure of oxygen calculation
 	});
 
