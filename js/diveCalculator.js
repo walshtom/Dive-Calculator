@@ -9,12 +9,6 @@ $(document).on("pageinit", "#main", function(event) {
 	$('#units').html(selection);					//and display it on settings popup
 });
 
-	//var selection = $("#flip-2").val();  			//Detect Metric or Imperial units
-	 // if (selection == "Metric") {
-	  	//chgToMetric();}					 		//Do Metric setup
-	 // if (selection == "Imperial") {
-	  	//chgToImperial();}				 			//Do Imperial setup
-
 function chgToImperial() {
 	var DepthConst = 33;	
 	$(".sliderLabel").text("Depth in Feet");
@@ -100,19 +94,19 @@ function calcEAD(EADdepth, fO2, DepthConst) {
 	} // End Equivalent Air Depth
 	
 //Partial Pressure of Oxygen///////////////////////////////////////////////////////////////////
-$(document).on('change', '#PPO2depth_slider', function() {	
-	PPO2depth = ($(this).val());					//Get the PPO2depth from the slider
+$(document).on('change', '#ppO2depth_slider', function() {	
+	ppO2depth = ($(this).val());					//Get the ppO2depth from the slider
 	var DepthConst = "";							//Detect Metric or Imperial units
 	var selection = $("#flip-2").val();				//and set the DepthConst appropriately
 	  if (selection == "Metric") {
 	  	DepthConst = 10;}		
 	  if (selection == "Imperial") {
 	  	DepthConst = 33;}	
-	fO2 = ($("#PPO2percentO2slider").val())/100;	//Read the slider and convert to fO2
-	calcppO2(PPO2depth, fO2, DepthConst);			//Send variables off for partial pressure of oxygen calculation
+	fO2 = ($("#ppO2percentO2slider").val())/100;	//Read the slider and convert to fO2
+	calcppO2(ppO2depth, fO2, DepthConst);			//Send variables off for partial pressure of oxygen calculation
 	});
 
-$(document).on('change', '#PPO2percentO2slider', function() {
+$(document).on('change', '#ppO2percentO2slider', function() {
 	fO2 = ($(this).val())/100;						//Get the fO2 from the slider
 	var DepthConst = "";							//Detect Metric or Imperial units
 	var selection = $("#flip-2").val();				//and set the DepthConst appropriately
@@ -120,15 +114,15 @@ $(document).on('change', '#PPO2percentO2slider', function() {
 	  	DepthConst = 10;}		
 	  if (selection == "Imperial") {
 	  	DepthConst = 33;}
-    PPO2depth = $("#PPO2depth_slider").val();		//Read the ppO2 depth slider
-	calcppO2(PPO2depth, fO2, DepthConst);			//Send variables off for partial pressure of oxygen calculation
+    ppO2depth = $("#ppO2depth_slider").val();		//Read the ppO2 depth slider
+	calcppO2(ppO2depth, fO2, DepthConst);			//Send variables off for partial pressure of oxygen calculation
 	});
 
-function calcppO2(PPO2depth, fO2, DepthConst) {
-	ppO2 = (fO2 * ((PPO2depth/DepthConst) + 1)).toFixed(2);
+function calcppO2(ppO2depth, fO2, DepthConst) {
+	ppO2 = (fO2 * ((ppO2depth/DepthConst) + 1)).toFixed(2);
 	$("#ppO2_value").html(ppO2);
 	
-	var checkVar = function(ppO2) {
+	var checkVar = function() {
 		var target = $('#warning');		
 		if (ppO2 <= 1.4) {
 		console.log('');
@@ -139,7 +133,8 @@ function calcppO2(PPO2depth, fO2, DepthConst) {
 		if (ppO2 > 1.6) {
 		console.log('Danger!');
 		}
-    }
+		checkVar();
+		}
 	
 //var checkVar = function(v) {
    //var target = $('#answer');
@@ -161,26 +156,33 @@ function calcppO2(PPO2depth, fO2, DepthConst) {
 	} // End Partial Pressure of Oxygen
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////	
-	
-$("#flip-1").change(displaySettings);				//Statement executes on page load but not on switch flip
-	displaySettings();	
-	
-function displaySettings() {
+
+$(document).on('change', '#flip-1', function() {
 	var ppO2Max = ($("#flip-1").val());
 	$("#maxO2_value").html(ppO2Max);
+	var ppO2depth = $("#ppO2depth_slider").val;
+	var fO2 = $("#ppO2percentO2slider").val;
+	var DepthConst = ""; 
+	var selection = $("#selection").val;
+	  if (selection == "Metric")  {
+		  DepthConst = 10}		
+	  if (selection == "Imperial") {
+		  DepthConst = 33}	
+	console.log(ppO2depth, fO2, DepthConst);		  
+	calcppO2(ppO2depth, fO2, DepthConst);	
+});
+
+$(document).on('change', '#flip-2', function() {
 	var selection = $("#flip-2").val();
-	$('#units').html(selection);	
-	}
-	
-$("select#flip-2").change(function() {
-	var selection = $("#flip-2").val();
-	if (selection == "Metric") {
-		console.log('in chg to Metric');
+	$("#units").html(selection);		
+	if (selection == "Metric")  {
 		chgToMetric();}		
 	if (selection == "Imperial") {
-		console.log('in chg to Imperial');
-		chgToImperial();}					
-	});	
+		chgToImperial();}	
+});
+
+	
+
 	
 	
 	
