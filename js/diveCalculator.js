@@ -103,7 +103,7 @@ $(document).on('change', '#PPO2depth_slider', function() {
 		DepthConst = 10;}		
 	if (selection == "Imperial") {
 		DepthConst = 33;}	
-	fO2 = ($("#ppO2percentO2slider").val())/100;	//Read the slider and convert to fO2
+	fO2 = ($("#PPO2percentO2slider").val())/100;	//Read the slider and convert to fO2
 	calcppO2(PPO2depth, fO2, DepthConst);			//Send variables off for partial pressure of oxygen calculation
 console.log(PPO2depth, fO2, DepthConst);
 	});
@@ -116,7 +116,7 @@ $(document).on('change', '#PPO2percentO2slider', function() {
 		DepthConst = 10;}		
 	if (selection == "Imperial") {
 		DepthConst = 33;}
-	ppO2depth = $("#ppO2depth_slider").val();		//Read the ppO2 depth slider
+    PPO2depth = $("#PPO2depth_slider").val();		//Read the ppO2 depth slider
 	calcppO2(PPO2depth, fO2, DepthConst);			//Send variables off for partial pressure of oxygen calculation
 console.log(PPO2depth, fO2, DepthConst);
 	});
