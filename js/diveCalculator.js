@@ -160,15 +160,28 @@ function calcppO2(ppO2depth, fO2, DepthConst) {
 $(document).on('change', '#flip-1', function() {
 	var ppO2Max = ($("#flip-1").val());
 	$("#maxO2_value").html(ppO2Max);
-	var ppO2depth = $("#ppO2depth_slider").val;
-	var fO2 = $("#ppO2percentO2slider").val;
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+	var BMdepth = $("#BMdepth_slider").val();
 	var DepthConst = ""; 
-	var selection = $("#selection").val;
+	var selection = $("#flip-2").val();
+	  if (selection == "Metric")  {
+		  DepthConst = 10}		
+	  if (selection == "Imperial") {
+		  DepthConst = 33}
+	calcBM(ppO2Max, BMdepth, DepthConst);
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////	
+	var ppO2depth = $("#ppO2depth_slider").val();
+	var fO2 = ($("#ppO2percentO2slider").val())/100;
+	var DepthConst = ""; 
+	var selection = $("#flip-2").val();
 	  if (selection == "Metric")  {
 		  DepthConst = 10}		
 	  if (selection == "Imperial") {
 		  DepthConst = 33}	
-	console.log(ppO2depth, fO2, DepthConst);		  
+	console.log(ppO2depth);	
+	console.log(fO2);	
+	console.log(DepthConst);		
 	calcppO2(ppO2depth, fO2, DepthConst);	
 });
 
