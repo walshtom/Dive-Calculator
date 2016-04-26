@@ -201,13 +201,7 @@ $(document).on('change', '#flip-2', function() {
 		chgToMetric();}		
 	if (selection == "Imperial") {
 		chgToImperial();}	
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	var ppO2Max = $("#flip-1").val();
-	var BMdepthSetting = $("#BMdepth_slider").val(); 
-	var	BMdepth = "";
-	var DepthConst = ""; 
-	var selection = $("#flip-2").val();
-	
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 	  if (selection == "Metric")  {
 		  DepthConst = 10;
 		  BMdepth = Math.round(BMdepthSetting * 0.3048);
@@ -220,7 +214,12 @@ $(document).on('change', '#flip-2', function() {
 		  console.log(BMdepth + ' in Feet');
 		  $(".sliderValue").prop({min: 33, max: 148}).slider("refresh");		  
 		  $("#BMdepth_slider").val(BMdepth).slider("refresh")}	 
-		  
+
+	var ppO2Max = $("#flip-1").val();
+	var BMdepthSetting = $("#BMdepth_slider").val(); 
+	var	BMdepth = "";
+	var DepthConst = ""; 
+	var selection = $("#flip-2").val();		  
 	calcBM(ppO2Max, BMdepth, DepthConst);				
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 //	var ppO2Max = $("#flip-1").val();
@@ -232,14 +231,7 @@ $(document).on('change', '#flip-2', function() {
 //	  if (selection == "Imperial") {
 //		  DepthConst = 33}		  		  
 //	calcMOD(ppO2Max, MODfO2, DepthConst);				
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
-	var	EADdepthSetting = $("#EADdepth_slider").val(); 
-	console.log(EADdepthSetting);
-	var EADfO2 = ($("#EADpercentO2slider").val())/100; 		
-	var	EADdepth = "";	
-	var DepthConst = ""; 
-	var selection = $("#flip-2").val();
-	
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
 	  if (selection == "Metric")  {
 		  DepthConst = 10;
 		  EADdepth = Math.round(EADdepthSetting * 0.3048);
@@ -252,6 +244,12 @@ $(document).on('change', '#flip-2', function() {
 		  $(".sliderValue").prop({min: 33, max: 148}).slider("refresh");
 		  $("#EADdepth_slider").val(EADdepth).slider("refresh")}
 		  
+	var	EADdepthSetting = $("#EADdepth_slider").val(); 
+	console.log(EADdepthSetting);
+	var EADfO2 = ($("#EADpercentO2slider").val())/100; 		
+	var	EADdepth = "";	
+	var DepthConst = ""; 
+	var selection = $("#flip-2").val();		  
 	console.log(EADdepth);	
 	console.log(EADfO2);	
 	console.log(DepthConst);		
