@@ -13,15 +13,15 @@ function chgToImperial() {
 	var DepthConst = 33;	
 	$(".sliderLabel").text("Depth in Feet");
 	$(".pressureUnits").text("Atmospheres Absolute (ATA)");
-	$(".depthUnits").text("Feet");
-	$(".sliderValue").prop({min: 33, max: 148, value: 33}).slider("refresh");}
+	$(".depthUnits").text("Feet");}
+	//$(".sliderValue").prop({min: 33, max: 148}).slider("refresh");}
 
 function chgToMetric() {
 	var DepthConst = 10;	
 	$(".sliderLabel").text("Depth in Meters");
 	$(".pressureUnits").text("Bar");
-	$(".depthUnits").text("Meters");	
-	$(".sliderValue").prop({min: 10, max: 45, value: 10}).slider("refresh");}	
+	$(".depthUnits").text("Meters");}	
+	//$(".sliderValue").prop({min: 10, max: 45}).slider("refresh");}	
 	
 //Best Nitrox Mix//////////////////////////////////////////////////////////////////////////////   
 $(document).on('change', '#BMdepth_slider', function() {
@@ -44,19 +44,19 @@ function calcBM(ppO2Max, BMdepth, DepthConst) {
 //Maximum Operating Depth  ADD IN PPO2////////////////////////////////////////////////////
 $(document).on('change', '#MODpercentO2slider', function() {
 	var ppO2Max = ($("#flip-1").val());				//Get the ppO2Max value from switch 1
-	var fO2  = ($(this).val())/100;					//Get the fO2 from the slider
+	var MODfO2  = ($(this).val())/100;					//Get the MODfO2 from the slider
 	var DepthConst = "";							//Detect Metric or Imperial units
 	var selection = $("#flip-2").val();				//and set the DepthConst appropriately
 	  if (selection == "Metric") {
 	  	DepthConst = 10;}		
 	  if (selection == "Imperial") {
 	  	DepthConst = 33;}	
-	calcMOD(ppO2Max, fO2, DepthConst);				//Send variables off for Maximum Operating Depth calculation
+	calcMOD(ppO2Max, MODfO2, DepthConst);				//Send variables off for Maximum Operating Depth calculation
 	});
 
-function calcMOD(ppO2Max, fO2, DepthConst) {
-	//MOD = Math.round((46.2/fO2) - DepthConst);
-	MOD = Math.round(DepthConst * ((ppO2Max/fO2) - 1));	
+function calcMOD(ppO2Max, MODfO2, DepthConst) {
+	//MOD = Math.round((46.2/MODfO2) - DepthConst);
+	MOD = Math.round(DepthConst * ((ppO2Max/MODfO2) - 1));	
 	$("#MOD_value").html(MOD);	
 	} // End Maximum Operating Depth
 
@@ -70,12 +70,12 @@ $(document).on('change', '#EADdepth_slider', function() {
 	  	DepthConst = 10;}		
 	  if (selection == "Imperial") {
 	  	DepthConst = 33;}		
-	fO2 = ($("#EADpercentO2slider").val())/100;		//Read the slider and convert to fO2
-	calcEAD(EADdepth, fO2, DepthConst);				//Send variables off for Equivalent Air Depth calculation
+	EADfO2 = ($("#EADpercentO2slider").val())/100;		//Read the slider and convert to EADfO2
+	calcEAD(EADdepth, EADfO2, DepthConst);				//Send variables off for Equivalent Air Depth calculation
 	});
 	
 $(document).on('change', '#EADpercentO2slider', function() {
-	fO2 = ($(this).val())/100;						//Read the slider and convert to fO2
+	EADfO2 = ($(this).val())/100;						//Read the slider and convert to EADfO2
 	var DepthConst = "";							//Detect Metric or Imperial units
 	var selection = $("#flip-2").val();				//and set the DepthConst appropriately
 	  if (selection == "Metric") {
@@ -83,11 +83,11 @@ $(document).on('change', '#EADpercentO2slider', function() {
 	  if (selection == "Imperial") {
 	  	DepthConst = 33;}		
 	EADdepth = $("#EADdepth_slider").val();			//Get the EADdepth from the slider
-	calcEAD(EADdepth, fO2, DepthConst);				//Send variables off for Equivalent Air Depth calculation
+	calcEAD(EADdepth, EADfO2, DepthConst);				//Send variables off for Equivalent Air Depth calculation
 	});
 	
-function calcEAD(EADdepth, fO2, DepthConst) {
-	var fN2 = (1 - fO2);	
+function calcEAD(EADdepth, EADfO2, DepthConst) {
+	var fN2 = (1 - EADfO2);	
 	var new_depth = (parseInt(EADdepth) + DepthConst);
 	EAD = Math.round((((fN2) * (new_depth))/.79) - DepthConst);
 	$('#EAD_value').html(EAD);
@@ -102,12 +102,12 @@ $(document).on('change', '#ppO2depth_slider', function() {
 	  	DepthConst = 10;}		
 	  if (selection == "Imperial") {
 	  	DepthConst = 33;}	
-	fO2 = ($("#ppO2percentO2slider").val())/100;	//Read the slider and convert to fO2
-	calcppO2(ppO2depth, fO2, DepthConst);			//Send variables off for partial pressure of oxygen calculation
+	ppO2fO2 = ($("#ppO2percentO2slider").val())/100;	//Read the slider and convert to ppO2fO2
+	calcppO2(ppO2depth, ppO2fO2, DepthConst);			//Send variables off for partial pressure of oxygen calculation
 	});
 
 $(document).on('change', '#ppO2percentO2slider', function() {
-	fO2 = ($(this).val())/100;						//Get the fO2 from the slider
+	ppO2fO2 = ($(this).val())/100;						//Get the ppO2fO2 from the slider
 	var DepthConst = "";							//Detect Metric or Imperial units
 	var selection = $("#flip-2").val();				//and set the DepthConst appropriately
 	  if (selection == "Metric") {
@@ -115,11 +115,11 @@ $(document).on('change', '#ppO2percentO2slider', function() {
 	  if (selection == "Imperial") {
 	  	DepthConst = 33;}
     ppO2depth = $("#ppO2depth_slider").val();		//Read the ppO2 depth slider
-	calcppO2(ppO2depth, fO2, DepthConst);			//Send variables off for partial pressure of oxygen calculation
+	calcppO2(ppO2depth, ppO2fO2, DepthConst);			//Send variables off for partial pressure of oxygen calculation
 	});
 
-function calcppO2(ppO2depth, fO2, DepthConst) {
-	ppO2 = (fO2 * ((ppO2depth/DepthConst) + 1)).toFixed(2);
+function calcppO2(ppO2depth, ppO2fO2, DepthConst) {
+	ppO2 = (ppO2fO2 * ((ppO2depth/DepthConst) + 1)).toFixed(2);
 	$("#ppO2_value").html(ppO2);
 	
 	var checkVar = function() {
@@ -155,8 +155,10 @@ function calcppO2(ppO2depth, fO2, DepthConst) {
 	  
 	} // End Partial Pressure of Oxygen
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////	
-
+	
+	
+	
+//////////////////////////////////////////  Switch 1  ////////////////////////////////////////////////	
 $(document).on('change', '#flip-1', function() {
 	var ppO2Max = ($("#flip-1").val());
 	$("#maxO2_value").html(ppO2Max);
@@ -165,26 +167,33 @@ $(document).on('change', '#flip-1', function() {
 	var DepthConst = ""; 
 	var selection = $("#flip-2").val();
 	  if (selection == "Metric")  {
-		  DepthConst = 10}		
+		  DepthConst = 10;
+		  $(".sliderLabel").text("Depth in Meters");
+		  $(".pressureUnits").text("Bar");
+		  $(".depthUnits").text("Meters");}			  		  		
 	  if (selection == "Imperial") {
-		  DepthConst = 33}
+		  DepthConst = 33
+		  $(".sliderLabel").text("Depth in Feet");
+		  $(".pressureUnits").text("Atmospheres Absolute (ATA)");
+		  $(".depthUnits").text("Feet");}		  
 	calcBM(ppO2Max, BMdepth, DepthConst);
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////////	
-	var ppO2depth = $("#ppO2depth_slider").val();
-	var fO2 = ($("#ppO2percentO2slider").val())/100;
+	var MODfO2 = $("#MODpercentO2slider").val()/100;
 	var DepthConst = ""; 
 	var selection = $("#flip-2").val();
 	  if (selection == "Metric")  {
 		  DepthConst = 10}		
 	  if (selection == "Imperial") {
-		  DepthConst = 33}	
-	console.log(ppO2depth);	
-	console.log(fO2);	
-	console.log(DepthConst);		
-	calcppO2(ppO2depth, fO2, DepthConst);	
-});
+		  DepthConst = 33}			
+	calcMOD(ppO2Max, MODfO2, DepthConst);	
+	});	
+///////////////////////////////////////////////////////////////////////////////////////////////////////////	
 
+
+
+
+
+/////////////////////////////////////////  Switch 2  //////////////////////////////////////////////////////	
 $(document).on('change', '#flip-2', function() {
 	var selection = $("#flip-2").val();
 	$("#units").html(selection);		
@@ -192,12 +201,118 @@ $(document).on('change', '#flip-2', function() {
 		chgToMetric();}		
 	if (selection == "Imperial") {
 		chgToImperial();}	
-});
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	var ppO2Max = $("#flip-1").val();
+	var BMdepthSetting = $("#BMdepth_slider").val(); 
+	var	BMdepth = "";
+	var DepthConst = ""; 
+	var selection = $("#flip-2").val();
+	
+	  if (selection == "Metric")  {
+		  DepthConst = 10;
+		  BMdepth = Math.round(BMdepthSetting * 0.3048);
+		  $(".sliderValue").prop({min: 10, max: 45}).slider("refresh");
+		  $("#BMdepth_slider").val(BMdepth).slider("refresh")}
+		  
+	  if (selection == "Imperial") {
+		  DepthConst = 33;
+		  BMdepth = Math.round(BMdepthSetting / 0.3048);
+		  console.log(BMdepth + ' in Feet');
+		  $(".sliderValue").prop({min: 33, max: 148}).slider("refresh");		  
+		  $("#BMdepth_slider").val(BMdepth).slider("refresh")}	 
+		  
+	calcBM(ppO2Max, BMdepth, DepthConst);				
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
+//	var ppO2Max = $("#flip-1").val();
+//	var MODfO2 = $("#MODpercentO2slider").val()/100;
+//	var DepthConst = ""; 
+//	var selection = $("#flip-2").val();
+//	  if (selection == "Metric")  {
+//		  DepthConst = 10}
+//	  if (selection == "Imperial") {
+//		  DepthConst = 33}		  		  
+//	calcMOD(ppO2Max, MODfO2, DepthConst);				
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
+	var	EADdepthSetting = $("#EADdepth_slider").val(); 
+	console.log(EADdepthSetting);
+	var EADfO2 = ($("#EADpercentO2slider").val())/100; 		
+	var	EADdepth = "";	
+	var DepthConst = ""; 
+	var selection = $("#flip-2").val();
+	
+	  if (selection == "Metric")  {
+		  DepthConst = 10;
+		  EADdepth = Math.round(EADdepthSetting * 0.3048);
+		  $(".sliderValue").prop({min: 10, max: 45}).slider("refresh");
+		  $("#EADdepth_slider").val(EADdepth).slider("refresh")}	
+		  
+	  if (selection == "Imperial") {
+		  DepthConst = 33;
+		  EADdepth = Math.round(EADdepthSetting / 0.3048);
+		  $(".sliderValue").prop({min: 33, max: 148}).slider("refresh");
+		  $("#EADdepth_slider").val(EADdepth).slider("refresh")}
+		  
+	console.log(EADdepth);	
+	console.log(EADfO2);	
+	console.log(DepthConst);		
+	calcEAD(EADdepth, EADfO2, DepthConst);	
+});	
+	
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+
+		
+		
+
 
 	
 
 	
 	
+//   
+//                            _
+//    _._ _..._ .-',     _.._(`))
+//   '-. `     '  /-._.-'    ',/
+//      )         \            '.
+//     / _    _    |             \
+//    |  a    a    /              |
+//    \   .-.                     ;  
+//     '-('' ).-'       ,'       ;
+//        '-;           |      .'
+//    BYE!   \           \    /
+//           | 7  .__  _.-\   \
+//           | |  |  ``/  /`  /
+//          /,_|  |   /,_/   /
+//             /,_/      '`-'
+//   
+//   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	
 	
 	
