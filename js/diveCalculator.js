@@ -201,26 +201,28 @@ $(document).on('change', '#flip-2', function() {
 		chgToMetric();}		
 	if (selection == "Imperial") {
 		chgToImperial();}	
+});				
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////	
-	  if (selection == "Metric")  {
+$(document).on('change', '#flip-2', function() {
+	var BMselection = $("#flip-2").val();	
+	var BMdepthSetting = $("#BMdepth_slider").val(); 
+	var DepthConst = "";
+	var	BMdepth = "";	
+	  if (BMselection == "Metric")  {
 		  DepthConst = 10;
 		  BMdepth = Math.round(BMdepthSetting * 0.3048);
 		  $(".sliderValue").prop({min: 10, max: 45}).slider("refresh");
 		  $("#BMdepth_slider").val(BMdepth).slider("refresh")}
 		  
-	  if (selection == "Imperial") {
+	  if (BMselection == "Imperial") {
 		  DepthConst = 33;
 		  BMdepth = Math.round(BMdepthSetting / 0.3048);
-		  console.log(BMdepth + ' in Feet');
 		  $(".sliderValue").prop({min: 33, max: 148}).slider("refresh");		  
 		  $("#BMdepth_slider").val(BMdepth).slider("refresh")}	 
 
-	var ppO2Max = $("#flip-1").val();
-	var BMdepthSetting = $("#BMdepth_slider").val(); 
-	var	BMdepth = "";
-	var DepthConst = ""; 
-	var selection = $("#flip-2").val();		  
-	calcBM(ppO2Max, BMdepth, DepthConst);				
+	var ppO2Max = $("#flip-1").val();	  
+	calcBM(ppO2Max, BMdepth, DepthConst);
+});		
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 //	var ppO2Max = $("#flip-1").val();
 //	var MODfO2 = $("#MODpercentO2slider").val()/100;
@@ -232,72 +234,59 @@ $(document).on('change', '#flip-2', function() {
 //		  DepthConst = 33}		  		  
 //	calcMOD(ppO2Max, MODfO2, DepthConst);				
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
-	  if (selection == "Metric")  {
+$(document).on('change', '#flip-2', function() {
+	var EADselection = $("#flip-2").val();
+	var EADfO2 = ($("#EADpercentO2slider").val())/100; 		
+	var	EADdepth = "";	
+	var DepthConst = "";		
+	var	EADdepthSetting = $("#EADdepth_slider").val();	
+	console.log(EADdepthSetting);										//WHY DOES THIS RETURN 45?????
+	if (EADselection == "Metric")  {
 		  DepthConst = 10;
 		  EADdepth = Math.round(EADdepthSetting * 0.3048);
+		  console.log(EADdepth);
 		  $(".sliderValue").prop({min: 10, max: 45}).slider("refresh");
 		  $("#EADdepth_slider").val(EADdepth).slider("refresh")}	
 		  
-	  if (selection == "Imperial") {
+	  if (EADselection == "Imperial") {
 		  DepthConst = 33;
 		  EADdepth = Math.round(EADdepthSetting / 0.3048);
+		  console.log(EADdepth);		  
 		  $(".sliderValue").prop({min: 33, max: 148}).slider("refresh");
-		  $("#EADdepth_slider").val(EADdepth).slider("refresh")}
-		  
-	var	EADdepthSetting = $("#EADdepth_slider").val(); 
-	console.log(EADdepthSetting);
-	var EADfO2 = ($("#EADpercentO2slider").val())/100; 		
-	var	EADdepth = "";	
-	var DepthConst = ""; 
-	var selection = $("#flip-2").val();		  
-	console.log(EADdepth);	
-	console.log(EADfO2);	
-	console.log(DepthConst);		
+		  $("#EADdepth_slider").val(EADdepth).slider("refresh")}		  
+	//console.log(EADdepth);	
+	//console.log(EADfO2);	
+	//console.log(DepthConst);		
 	calcEAD(EADdepth, EADfO2, DepthConst);	
-});	
-	
+});
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-
-		
-		
-
+$(document).on('change', '#flip-2', function() {
+	var ppO2selection = $("#flip-2").val();
+	var ppO2fO2 = ($("#EADpercentO2slider").val())/100; 		
+	var	ppO2depth = "";	
+	var DepthConst = "";		
+	var	ppO2depthSetting = $("#ppO2depth_slider").val();	
+	//console.log(ppO2depthSetting);										
+	if (ppO2selection == "Metric")  {
+		  DepthConst = 10;
+		  ppO2depth = Math.round(ppO2depthSetting * 0.3048);
+		  //console.log(ppO2depth);
+		  $(".sliderValue").prop({min: 10, max: 45}).slider("refresh");
+		  $("#ppO2depth_slider").val(ppO2depth).slider("refresh")}	
+		  
+	  if (ppO2selection == "Imperial") {
+		  DepthConst = 33;
+		  ppO2depth = Math.round(ppO2depthSetting / 0.3048);
+		  //console.log(EADdepth);		  
+		  $(".sliderValue").prop({min: 33, max: 148}).slider("refresh");
+		  $("#ppO2depth_slider").val(EADdepth).slider("refresh")}		  
+	//console.log(ppO2depth);	
+	//console.log(ppO2fO2);	
+	//console.log(DepthConst);		
+	calcppO2(ppO2depth, ppO2fO2, DepthConst);		
+});
 
 	
-
-	
-	
-//   
-//                            _
-//    _._ _..._ .-',     _.._(`))
-//   '-. `     '  /-._.-'    ',/
-//      )         \            '.
-//     / _    _    |             \
-//    |  a    a    /              |
-//    \   .-.                     ;  
-//     '-('' ).-'       ,'       ;
-//        '-;           |      .'
-//    BYE!   \           \    /
-//           | 7  .__  _.-\   \
-//           | |  |  ``/  /`  /
-//          /,_|  |   /,_/   /
-//             /,_/      '`-'
-//   
-//   
-
-
-
-
-
-
 
 
 
