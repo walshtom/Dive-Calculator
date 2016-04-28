@@ -40,24 +40,19 @@ function calcEAD() {
 	EAD = Math.round((((fN2) * (new_depth))/.79) - DepthConst);
 	$('#EAD_value').html(EAD);
 	var ppO2 =  (EADfO2 * ((EADdepth/DepthConst) + 1)).toFixed(2);
-	if (ppO2 > 1.4)
-	warning(ppO2);}	
+	//if (ppO2 > 1.4)
+	//warning(ppO2);}	
+}
 
 function calcPPO2() {
 	ppO2fO2 = ($("#ppO2percentO2slider").val())/100;
 	ppO2depth = $("#ppO2depth_slider").val();		
 	ppO2 = (ppO2fO2 * ((ppO2depth/DepthConst) + 1)).toFixed(2);
 	$("#ppO2_value").html(ppO2);
-	if (ppO2 > 1.4)
-	warning(ppO2);}	  	
+	//if (ppO2 > 1.4)
+	//warning(ppO2);}	  	
+}
 
-function warning(ppO2) {
-	if (ppO2 <= 1.6) {
-	$("h3#warning").innerHTML = "Caution! Do not exceed 1.4 (ATA)/Bar during<br> the working part of the dive.<br>Use for decompression only."}
-	if (ppO2 > 1.6) {
-	$("h3#warning").innerHTML = "Danger! Partial pressures of oxygen<br>greater than 1.6 (ATA)/Bar<br>pose serious risk of siezure."}	
-}	
-	
 function chgToMetric() {									
 	DepthConst = 10;										//set DepthConst to Metric value
 	$(".sliderLabel").text("Depth in Meters");				//change labels to Metric
