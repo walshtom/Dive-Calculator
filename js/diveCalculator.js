@@ -52,8 +52,6 @@ function calcPPO2() {
 	PPO2warning(ppO2);}	  	
 		
 function EADwarning(ppO2) {
-console.log('in EADwarning');	
-
 	if (ppO2 > 1.4 && ppO2 <= 1.6) {	
 	warning1()}
 	if (ppO2 >= 1.6) {
@@ -61,12 +59,14 @@ console.log('in EADwarning');
 }		
 
 function warning1() {
-$("#EADmsg").text("1.4 to 1.6");	
-}	
+$("#EADmsg").css("display","block");	
+$("#EADmsg").css("color","green");
+$("#EADmsg").html("Caution! Do not exceed 1.4 (ATA)/Bar during<br>the working part of the dive.<br>Use for decompression only.");}	
 
 function warning2() {
-$("#EADmsg").text("over 1.6");	
-}
+$("#EADmsg").css("display","block");	
+$("#EADmsg").css("color","red");
+$("#EADmsg").html("Danger! Partial pressures of oxygen<br>greater than 1.6 ATA/Bar<br>pose serious risk of siezure.");}
 
 
 

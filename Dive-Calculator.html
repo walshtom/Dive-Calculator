@@ -12,7 +12,8 @@
   <meta name="viewport" content="width=device-width, minimum-scale=1.0">
   <style type="text/css">
     h2,h3,h4 {text-align: center;}
-	#warning {color: red;}
+	.style {display: block;}
+	#EADmsg {color: red; display: block;}
   </style>
 </head>
 
@@ -80,7 +81,7 @@
 			<label for="slider-2">Percentage Oxygen</label>
 			<input type="range" name="slider-2" id="ppO2percentO2slider" data-highlight="true" min="21" max="40" value="21"></input>
 		<h2><span id="ppO2_value"></span>&nbsp;<span class="pressureUnits">Atmospheres Absolute (ATA)</span></h2>	
-		<h3 id="PPO2msg">Caution! Do not exceed 1.4 (ATA)/Bar during<br> the working part of the dive.<br>Use for decompression only.</h3>	
+		<h3><span id="EADmsg"></span></h3>
 		</div>				
 </div>
 
