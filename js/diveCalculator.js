@@ -53,14 +53,22 @@ function calcPPO2() {
 		
 function EADwarning(ppO2) {
 console.log('in EADwarning');	
-	if (ppO2 <= 1.4) {	
-	$("#EADmsg").innerText("");
-	console.log('< 1.4')}
+
 	if (ppO2 > 1.4 && ppO2 <= 1.6) {	
-	$("#EADmsg").innerText("1.4 to 1.6");}
+	warning1()}
 	if (ppO2 >= 1.6) {
-	$("#EADmsg").innerText("over 1.6");}
+	warning2()}
 }		
+
+function warning1() {
+$("#EADmsg").text("1.4 to 1.6");	
+}	
+
+function warning2() {
+$("#EADmsg").text("over 1.6");	
+}
+
+
 
 	
 function chgToMetric() {									
