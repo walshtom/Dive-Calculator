@@ -3,12 +3,15 @@ $(document).on("pageinit", "#main", function(event) {
 	$("span#MOD_value").text(187);	     							//These sets default values of output in the four tabs 
 	$("span#EAD_value").text(33);	
 	$("span#ppO2_value").text(0.42);
-	ppO2Max = 1.4;													//and sets default value of global variable ppO2Max
-	DepthConst = 33;												//and sets default value of DepthConst (Depth in feet or Meters = 1 atmosphere)
+	ppO2Max = 1.4;													//Sets default value of global variable ppO2Max
+	DepthConst = 33;												//Sets default value of DepthConst (Depth in feet or Meters = 1 atmosphere)
+	$("#maxO2_value").html("1.4");									//Sets default label for ppO2Max on settings popup
+	$("#units").html("Imperial");									//Sets default label for units on settings popup
 	});
 
 $(document).on('change', '#flip-1', function() {					//Monitor changes to maximum partial pressure of oxygen
 	ppO2Max = $("#flip-1").val();									//and recalculate Best Mix and Maximum Operating Depth
+	$("#maxO2_value").html(ppO2Max);	
 	calcBM();								
 	calcMOD();	
 	});	
@@ -85,33 +88,28 @@ function chgToImperial() {
 	//calcPPO2();	
 	}	
 
-//	DEPTH and PERCENTAGE OXYGEN SLIDER EVENT HANDLERS	
-
-	// Best Nitrox Mix
-$(document).on('change', '#BMdepth_slider', function() {
+		
+$(document).on('change', '#BMdepth_slider', function() {			// Best Nitrox Mix event handler
 	calcBM();							
 	});
 	
-	// Maximum Operating Depth
-$(document).on('change', '#MODpercentO2slider', function() {
+$(document).on('change', '#MODpercentO2slider', function() {		// Maximum Operating Depth event handler
 	calcMOD();							
 	});
-			
-	// Equivalent Air Depth
-$(document).on('change', '#EADdepth_slider', function() {
+				
+$(document).on('change', '#EADdepth_slider', function() {			// Equivalent Air Depth event handler
 	calcEAD();							
 	});
 	
-$(document).on('change', '#EADpercentO2slider', function() {
+$(document).on('change', '#EADpercentO2slider', function() {		// Equivalent Air Depth event handler
 	calcEAD();							
 	});	
 
-	// Partial Pressure of Oxygen
-$(document).on('change', '#ppO2depth_slider', function() {	
+$(document).on('change', '#ppO2depth_slider', function() {			// Partial Pressure of Oxygen event handler
 	calcPPO2();						
 	});
 
-$(document).on('change', '#ppO2percentO2slider', function() {
+$(document).on('change', '#ppO2percentO2slider', function() {		// Partial Pressure of Oxygen event handler
 	calcPPO2();						
 	});
 	
