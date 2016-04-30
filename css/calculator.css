@@ -1,0 +1,24 @@
+h2,h3,h4 {
+	text-align: center;
+}
+	
+.forceinline {
+ 	margin-left: 10%;   
+	position: relative;		
+}
+
+.switch {
+	display: inline-block;
+}	
+
+.output {
+	display: inline-block;
+	position: absolute;
+	top: -9%;	
+	margin-left: 1em;
+}
+
+.center {
+	text-align: center;
+}
+
