@@ -69,25 +69,24 @@ function chgToMetric() {
 	$(".sliderLabel").text("Depth in Meters");						//Change labels to Metric
 	$(".pressureUnits").text("Bar");
 	$(".depthUnits").text("Meters");
-	$(".sliderValue").prop({min: 10, max: 45}).slider("refresh");	
-	//calcBM();														//Recalculate the four functions							
-	//calcMOD();
-	//calcEAD();
-	//calcPPO2();
-	}	
-
+	var sld1 = Math.round(($("#BMdepth_slider").val())*0.3048);	
+	$("#BMdepth_slider").prop({min: 10, max: 45, value: sld1}).slider("refresh");
+	var sld2 = Math.round(($("#EADdepth_slider").val())*0.3048);
+	$("#EADdepth_slider").prop({min: 10, max: 45, value: sld2}).slider("refresh");
+	var sld3 = Math.round(($("#ppO2depth_slider").val())*0.3048);
+	$("#ppO2depth_slider").prop({min: 10, max: 45, value: sld3}).slider("refresh");}	
+	
 function chgToImperial() {									
 	DepthConst = 33;												//set DepthConst to Imperial value
 	$(".sliderLabel").text("Depth in Feet");						//change labels to Imperial
 	$(".pressureUnits").text("Atmospheres Absolute (ATA)");
-	$(".depthUnits").text("Feet");
-	$(".sliderValue").prop({min: 33, max: 148}).slider("refresh");	
-	//calcBM();														//Recalculate the four functions								
-	//calcMOD();
-	//calcEAD();
-	//calcPPO2();	
-	}	
-
+	$(".depthUnits").text("Feet");	
+	var sld1 = Math.round(($("#BMdepth_slider").val())/0.3048);	
+	$("#BMdepth_slider").prop({min: 33, max: 148, value: sld1}).slider("refresh");
+	var sld2 = Math.round(($("#EADdepth_slider").val())/0.3048);
+	$("#EADdepth_slider").prop({min: 33, max: 148, value: sld2}).slider("refresh");
+	var sld3 = Math.round(($("#ppO2depth_slider").val())/0.3048);
+	$("#ppO2depth_slider").prop({min: 33, max: 148, value: sld3}).slider("refresh");}	
 		
 $(document).on('change', '#BMdepth_slider', function() {			// Best Nitrox Mix event handler
 	calcBM();							
@@ -113,9 +112,12 @@ $(document).on('change', '#ppO2percentO2slider', function() {		// Partial Pressu
 	calcPPO2();						
 	});
 	
-
-
-
+var sld1 = $("#BMdepth_slider").val();
+//$("#MODpercentO2slider")
+//$("#EADdepth_slider")
+//$("#EADpercentO2slider")
+//$("#ppO2depth_slider")
+//$("#ppO2percentO2slider")
 
 
 

@@ -40,7 +40,7 @@
 	<h2>Best Nitrox Mix</h2>
 		<div>
 			<label for="slider-1" class="sliderLabel">Depth in feet</label>
-			<input type="range" name="slider-1" id="BMdepth_slider" class="sliderValue" data-highlight="true" min="33" max="148" value="33"></input>	
+			<input type="range" id="BMdepth_slider" class="sliderValue" data-highlight="true" min="33" max="148" value="33"></input>	
 		</div>	
 		<h2><span id="BM_value"></span>&nbsp;Percent Oxygen</h2>
 </div>
@@ -51,7 +51,7 @@
 	<h2>Maximum Operating Depth</h2>
 		<div id="test">	
 			<label for="slider-2">Percentage Oxygen</label>
-			<input type="range" name="slider-2" id="MODpercentO2slider" data-highlight="true" min="21" max="40" value="21"></input>	
+			<input type="range" id="MODpercentO2slider" data-highlight="true" min="21" max="40" value="21"></input>	
 		</div>	
 		<h2><span id="MOD_value"></span>&nbsp;<span class="depthUnits">Feet</span></h2>		
 </div>
@@ -62,9 +62,9 @@
 	<h2>Equivalent Air Depth</h2>
 		<div>
 			<label for="slider-1" class="sliderLabel">Depth in Feet</label>
-			<input type="range" name="slider-1" id="EADdepth_slider" class="sliderValue" data-highlight="true" min="33" max="148" value="33"></input>		
+			<input type="range" id="EADdepth_slider" class="sliderValue" data-highlight="true" min="33" max="148" value="33"></input>		
 			<label for="slider-2">Percentage Oxygen</label>
-			<input type="range" name="slider-2" id="EADpercentO2slider" data-highlight="true" min="21" max="40" value="21"></input>	
+			<input type="range" id="EADpercentO2slider" data-highlight="true" min="21" max="40" value="21"></input>	
 		</div>		
 		<h2><span id="EAD_value"></span>&nbsp;<span class="depthUnits">Feet</span></h2>	
 		<h3><span class="msg"></span></h3>
@@ -75,9 +75,9 @@
 	<h2>Partial Pressure of Oxygen</h2>
 		<div>
 			<label for="slider-1" class="sliderLabel">Depth in Feet</label>
-			<input type="range" name="slider-1" id="ppO2depth_slider" class="sliderValue" data-highlight="true" min="33" max="148" value="33"></input>		
+			<input type="range" id="ppO2depth_slider" class="sliderValue" data-highlight="true" min="33" max="148" value="33"></input>		
 			<label for="slider-2">Percentage Oxygen</label>
-			<input type="range" name="slider-2" id="ppO2percentO2slider" data-highlight="true" min="21" max="40" value="21"></input>
+			<input type="range" id="ppO2percentO2slider" data-highlight="true" min="21" max="40" value="21"></input>
 		<h2><span id="ppO2_value"></span>&nbsp;<span class="pressureUnits">Atmospheres Absolute (ATA)</span></h2>	
 		<h3><span class="msg"></span></h3>
 		</div>				
@@ -105,6 +105,7 @@
 			<div style="float: left;">
 				<label for="flip-1">Max ppO<sub>2</sub> (bar)</label>
 			</div>
+			
 			<div style="float: right;">
 				<select name="flip-1" id="flip-1" data-role="slider">
 					<option value="1.6">1.6</option>
