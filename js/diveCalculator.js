@@ -74,7 +74,9 @@ function chgToMetric() {
 	var sld3 = Math.round($("#ppO2depth_slider").val()*0.3048);	
 	$("#ppO2depth_slider").prop({min: 10, max: 45, value: sld3}).slider("refresh");
 	var mod = Math.round($("#MOD_value").html()*0.3048);							//Get the MOD value
-	$("#MOD_value").text(mod);}														//Convert it to Metric and display it
+	$("#MOD_value").text(mod);														//Convert it to Metric and display it
+	var ead = Math.round($("#EAD_value").html()*0.3048);							//Get the EAD value
+	$("#EAD_value").text(ead);}														//Convert it to Metric and display it
 	
 function chgToImperial() {									
 	DepthConst = 33;																//set DepthConst to Imperial value
@@ -88,7 +90,9 @@ function chgToImperial() {
 	var sld3 = Math.round(($("#ppO2depth_slider").val())/0.3048);	
 	$("#ppO2depth_slider").prop({min: 33, max: 148, value: sld3}).slider("refresh");
 	var mod = Math.round($("#MOD_value").html()/0.3048);							//Get the MOD value
-	$("#MOD_value").text(mod);}														//Convert it to Imperial and display it
+	$("#MOD_value").text(ead);														//Convert it to Imperial and display it
+	var mod = Math.round($("#EAD_value").html()/0.3048);							//Get the EAD value
+	$("#EAD_value").text(ead);}														//Convert it to Imperial and display it
 	
 				
 $(document).on('change', '#BMdepth_slider', function() {							// Best Nitrox Mix event handler
