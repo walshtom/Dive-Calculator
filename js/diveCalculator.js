@@ -41,7 +41,7 @@ function calcEAD() {																//Calculates the Equivalent Air Depth for an
 	EAD = Math.round((((fN2) * (new_depth))/.79) - DepthConst);
 	$('#EAD_value').html(EAD);
 	var ppO2 = (EADfO2 * ((EADdepth/DepthConst) + 1)).toFixed(2);
-	PPO2warning(ppO2);}																//Warns user if ppO2 values exceed safe limits
+	EADPPO2warning(ppO2);}																//Warns user if ppO2 values exceed safe limits
 
 function calcPPO2() {																//Calculates the Partial Pressure of Oxygen for a given EANx blend and a selected depth
 	ppO2fO2 = ($("#ppO2percentO2slider").val())/100;
@@ -50,18 +50,30 @@ function calcPPO2() {																//Calculates the Partial Pressure of Oxygen
 	$("#ppO2_value").html(ppO2);
 	PPO2warning(ppO2);}																//Warns user if ppO2 values exceed safe limits 	
 		
+function EADPPO2warning(ppO2) {														//Tests for ppO2 values and issues the warnings
+	if (ppO2 <= 1.4) {
+	$(".msg1").css("display","none");}	
+	if (ppO2 > 1.4 && ppO2 <= 1.6) {	
+	$(".msg1").css("display","block");	
+	$(".msg1").css("color","green");
+	$(".msg1").html("Caution! Do not exceed 1.4 (ATA)/Bar during<br>the working part of the dive.<br>Use for decompression only.");}
+	if (ppO2 >= 1.6) {
+	$(".msg1").css("display","block");	
+	$(".msg1").css("color","red");
+	$(".msg1").html("Danger! Partial pressures of oxygen<br>greater than 1.6 ATA/Bar<br>pose serious risk of siezure.");}}					
+
 function PPO2warning(ppO2) {														//Tests for ppO2 values and issues the warnings
 	if (ppO2 <= 1.4) {
-	$(".msg").css("display","none");}	
+	$(".msg2").css("display","none");}	
 	if (ppO2 > 1.4 && ppO2 <= 1.6) {	
-	$(".msg").css("display","block");	
-	$(".msg").css("color","green");
-	$(".msg").html("Caution! Do not exceed 1.4 (ATA)/Bar during<br>the working part of the dive.<br>Use for decompression only.");}
+	$(".msg2").css("display","block");	
+	$(".msg2").css("color","green");
+	$(".msg2").html("Caution! Do not exceed 1.4 (ATA)/Bar during<br>the working part of the dive.<br>Use for decompression only.");}
 	if (ppO2 >= 1.6) {
-	$(".msg").css("display","block");	
-	$(".msg").css("color","red");
-	$(".msg").html("Danger! Partial pressures of oxygen<br>greater than 1.6 ATA/Bar<br>pose serious risk of siezure.");}}		
-
+	$(".msg2").css("display","block");	
+	$(".msg2").css("color","red");
+	$(".msg2").html("Danger! Partial pressures of oxygen<br>greater than 1.6 ATA/Bar<br>pose serious risk of siezure.");}}	
+	
 function chgToMetric() {									
 	DepthConst = 10;																//Set DepthConst to Metric value
 	$(".sliderLabel").text("Depth in Meters");										//Change labels to Metric
@@ -118,8 +130,7 @@ $(document).on('change', '#ppO2depth_slider', function() {							// Partial Pres
 $(document).on('change', '#ppO2percentO2slider', function() {						// Partial Pressure of Oxygen event handler
 	calcPPO2();						
 	});
-	
-	
+
 
 //                            _
 //    _._ _..._ .-',     _.._(`))
