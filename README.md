@@ -1,2 +1,0 @@
-# Dive-Calculator
-Initial commit
